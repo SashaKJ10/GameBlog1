@@ -5,3 +5,8 @@ function getData(data) {
 console.log(getData(array));
 
 const user = [12, 23, 34];
+console.log(
+  user.map((user1) => {
+    return user1 * 2;
+  })
+);
