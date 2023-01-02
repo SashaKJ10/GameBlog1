@@ -8,3 +8,5 @@ const user = [12, 23, 34];
 const hello = 'hello';
 
 const hello2 = 'hello1';
+
+const hello34 = 'hello34';
