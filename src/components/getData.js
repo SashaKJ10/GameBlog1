@@ -8,4 +8,74 @@ const user = [12, 23, 34];
 const hello = 'hello';
 
 const hello2 = 'hello1';
+<<<<<<< HEAD
 const hello3 = 'hello3';
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const hello34 = 'hello34';
+>>>>>>> hello
