@@ -3,3 +3,5 @@ function getData(data) {
   return data.filter((item) => item < 55);
 }
 console.log(getData(array));
+
+const user = [12, 23, 34];
