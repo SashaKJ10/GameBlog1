@@ -7,4 +7,4 @@ console.log(getData(array));
 const user = [12, 23, 34];
 const hello = 'hello';
 
-console.log('why');
+const hello = 'hello1';
