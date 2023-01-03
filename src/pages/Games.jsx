@@ -1,14 +1,7 @@
 import FilterForm from '../components/FilterForm.jsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-function Games({
-  games,
-  setGames,
-  saveItems,
-  userInfo,
-  platforms,
-  genres,
-}) {
+function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
   const classes = {
     inputFileStyles:
       'block w-full w-40 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400',
@@ -79,8 +72,8 @@ function Games({
             </div>
             <div className="font-bold text-lg">{item.name}</div>
             <div>The description is: {item.description}</div>
-            <div>Genres: {[...item.genres].join(", ")}</div>
-            <div>Platform: {item.platform}</div>
+            <div>Genres: {[...item.genres].join(', ')}</div>
+            <div>Platform: {[...item.platforms].join(', ')}</div>
             {userInfo?.email === admin ? (
               <button
                 className={classes.button2}

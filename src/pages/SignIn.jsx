@@ -39,14 +39,15 @@ function SignIn({
                 type="text"
                 value={userInfo?.email}
                 onChange={(e) =>
-                  setUserInfo({ ...userInfo, email: e.target.value })}
+                  setUserInfo({ ...userInfo, email: e.target.value })
+                }
                 className={classes.inputStyles}
               />
             </div>
             <label>Password</label>
             <div className="py-3">
               <input
-                type="email"
+                type="password"
                 value={userInfo.password}
                 onChange={(e) =>
                   setUserInfo({ ...userInfo, password: e.target.value })

@@ -1,6 +1,14 @@
 import BasketballLogo from '../images/logo/basketball.png';
 
-function AddGame({ details, addGame, setDetails, platforms, genres, handleCheckboxInfoGenres }) {
+function AddGame({
+  details,
+  addGame,
+  setDetails,
+  platforms,
+  genres,
+  handleCheckboxInfoGenres,
+  handleCheckboxInfoPlatforms,
+}) {
   const classes = {
     inputFileStyles:
       'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400',
@@ -51,7 +59,6 @@ function AddGame({ details, addGame, setDetails, platforms, genres, handleCheckb
                 type="checkbox"
                 value={`${genre[1]}`}
                 onChange={handleCheckboxInfoGenres}
-                
               />
               <label className="font-medium antialiased">{genre[1]}</label>
             </div>
@@ -63,9 +70,8 @@ function AddGame({ details, addGame, setDetails, platforms, genres, handleCheckb
             <div>
               <input
                 type="checkbox"
-                onChange={(e) =>
-                  setDetails({ ...details, platform: platform[1] })
-                }
+                value={`${platform[1]}`}
+                onChange={handleCheckboxInfoPlatforms}
               />
               <label>{platform[1]}</label>
             </div>
@@ -87,7 +93,6 @@ function AddGame({ details, addGame, setDetails, platforms, genres, handleCheckb
           <button
             onClick={addGame}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            
           >
             Apply
           </button>

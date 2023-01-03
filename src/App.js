@@ -31,16 +31,31 @@ function App() {
     const { checked, value } = e.target;
 
     let newGenres = details.genres;
-    if (checked){
+    if (checked) {
       newGenres = [...newGenres, value];
-    }
-    else {
+    } else {
       newGenres = newGenres.filter((genre) => genre !== value);
     }
 
     setDetails({
       ...details,
       genres: newGenres,
+    });
+  };
+
+  const handleCheckboxInfoPlatforms = (e) => {
+    const { checked, value } = e.target;
+
+    let newPlatform = details.platforms;
+    if (checked) {
+      newPlatform = [...newPlatform, value];
+    } else {
+      newPlatform = newPlatform.filter((platform) => platform !== value);
+    }
+
+    setDetails({
+      ...details,
+      platforms: newPlatform,
     });
   };
 
@@ -75,6 +90,7 @@ function App() {
           setGames={setGames}
           saveItems={saveItems}
           handleCheckboxInfoGenres={handleCheckboxInfoGenres}
+          handleCheckboxInfoPlatforms={handleCheckboxInfoPlatforms}
         />
       </div>
     </div>

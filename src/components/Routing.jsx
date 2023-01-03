@@ -14,6 +14,7 @@ function Routing({
   setGames,
   saveItems,
   handleCheckboxInfoGenres,
+  handleCheckboxInfoPlatforms,
 }) {
   const [users, setUsers] = useState([]);
   const [signedIn, setSignedIn] = useState(false);
@@ -68,6 +69,7 @@ function Routing({
                   platforms={platforms}
                   genres={genres}
                   handleCheckboxInfoGenres={handleCheckboxInfoGenres}
+                  handleCheckboxInfoPlatforms={handleCheckboxInfoPlatforms}
                 />
               </Suspense>
             }
