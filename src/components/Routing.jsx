@@ -6,11 +6,23 @@ import React, { useState, lazy, Suspense } from 'react';
 import TopBar from './TopBar';
 import GamesDetail from '../pages/GamesDetail';
 import AddGame from '../pages/AddGame.jsx';
-function Routing({ game, details, addGame, setDetails, setGame, saveItems }) {
+function Routing({
+  game,
+  details,
+  addGame,
+  setDetails,
+  setGame,
+  saveItems,
+  handleCheckboxInfoGenres,
+  checkedInfo,
+  setCheckedInfo,
+  checkInfoDetails,
+  setCheckInfoDetails,
+}) {
   const [users, setUsers] = useState([]);
   const [signedIn, setSignedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    name: '',
+    password: '',
     email: '',
   });
   const genres = [
@@ -59,6 +71,9 @@ function Routing({ game, details, addGame, setDetails, setGame, saveItems }) {
                   setDetails={setDetails}
                   platforms={platforms}
                   genres={genres}
+                  handleCheckboxInfoGenres={handleCheckboxInfoGenres}
+                  checkedInfo={checkedInfo}
+                  setCheckedInfo={setCheckedInfo}
                 />
               </Suspense>
             }
@@ -74,6 +89,8 @@ function Routing({ game, details, addGame, setDetails, setGame, saveItems }) {
                   userInfo={userInfo}
                   genres={genres}
                   platforms={platforms}
+                  checkedInfo={checkedInfo}
+                  checkInfoDetails={checkInfoDetails}
                 />
               </Suspense>
             }

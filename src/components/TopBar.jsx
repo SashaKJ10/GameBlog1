@@ -82,7 +82,7 @@ function TopBar({ signedIn, userInfo, setSignedIn }) {
         </div>
         <div className="flex">
           <div className="px-2 mt-3 mb-1">
-            {signedUserInfo?.name === admin && signedInUser ? (
+            {signedUserInfo?.email === admin && signedInUser ? (
               <Link
                 to="/editing"
                 onClick={(e) =>
@@ -104,7 +104,7 @@ function TopBar({ signedIn, userInfo, setSignedIn }) {
           <div className="px-2 mt-3 mb-1">
             {signedInUser ? (
               <h2 className="flex justify-content items-center text-bold ">
-                {signedUserInfo?.name}
+                {signedUserInfo?.email}
               </h2>
             ) : (
               <Link

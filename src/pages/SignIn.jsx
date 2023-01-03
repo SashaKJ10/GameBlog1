@@ -28,29 +28,28 @@ function SignIn({
     <div>
       {signedInUser ? (
         <div className=" flex items-center justify-center text-lg">
-          You are signed in as {signedUserInfo.name}
+          You are signed in as {signedUserInfo?.email}
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center">
           <div>
-            <label>UserName</label>
-            <div className="py-3">
-              <input
-                type="text"
-                value={userInfo.name}
-                onChange={(e) =>
-                  setUserInfo({ ...userInfo, name: e.target.value })
-                }
-                className={classes.inputStyles}
-              />
-            </div>
             <label>Email</label>
             <div className="py-3">
               <input
-                type="email"
-                value={userInfo.email}
+                type="text"
+                value={userInfo?.email}
                 onChange={(e) =>
-                  setUserInfo({ ...userInfo, email: e.target.value })
+                  setUserInfo({ ...userInfo, email: e.target.value })}
+                className={classes.inputStyles}
+              />
+            </div>
+            <label>Password</label>
+            <div className="py-3">
+              <input
+                type="email"
+                value={userInfo.password}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, password: e.target.value })
                 }
                 className={classes.inputStyles}
               />

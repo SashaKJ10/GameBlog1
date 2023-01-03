@@ -1,7 +1,16 @@
 import FilterForm from '../components/FilterForm.jsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-function Games({ game, setGame, saveItems, userInfo, platforms, genres }) {
+function Games({
+  game,
+  setGame,
+  saveItems,
+  userInfo,
+  platforms,
+  genres,
+  checkedInfo,
+  checkInfoDetails,
+}) {
   const classes = {
     inputFileStyles:
       'block w-full w-40 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400',
@@ -59,6 +68,7 @@ function Games({ game, setGame, saveItems, userInfo, platforms, genres }) {
     setGame(newItem);
     saveItems(newItem);
   };
+
   return (
     <div>
       <div className="flex flex-row px-60 justify-around flex-wrap">
@@ -71,9 +81,13 @@ function Games({ game, setGame, saveItems, userInfo, platforms, genres }) {
             </div>
             <div className="font-bold text-lg">{item.name}</div>
             <div>The description is: {item.description}</div>
-            <div>Genre: {item.genres}</div>
+
+            <div>
+              Genres: {checkedInfo.genres[0]}{' '}
+              {checkedInfo.genres[1] !== 'null' ? checkedInfo.genres[1] : null}{' '}
+            </div>
             <div>Platform: {item.platform}</div>
-            {userInfo.name === admin ? (
+            {userInfo?.email === admin ? (
               <button
                 className={classes.button2}
                 onClick={() => onDelete(item.id)}

@@ -14,10 +14,10 @@ function Account({ userInfo, signedIn }) {
         <img src={SnoopDog} className="w-15 h-15" />
       </div>
       <div className="flex justify-center items-center">
-        {signedUserInfo?.name}
+        {signedUserInfo?.email}
       </div>
       <div className="flex justify-center items-center">
-        {signedUserInfo?.email}
+        {signedUserInfo?.password}
       </div>
       <div className={classes.roleContainer}>
         <h1>
