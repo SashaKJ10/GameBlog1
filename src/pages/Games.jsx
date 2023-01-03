@@ -2,14 +2,12 @@ import FilterForm from '../components/FilterForm.jsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 function Games({
-  game,
-  setGame,
+  games,
+  setGames,
   saveItems,
   userInfo,
   platforms,
   genres,
-  checkedInfo,
-  checkInfoDetails,
 }) {
   const classes = {
     inputFileStyles:
@@ -34,45 +32,45 @@ function Games({
   const admin = localStorage.getItem('admin');
 
   const filteredGenres = (currentGenre) => {
-    setGameInfo(game);
-    const filteredGenres = game.filter((item) => {
+    setGameInfo(games);
+    const filteredGenres = games.filter((item) => {
       console.log(item.genres);
       return item.genres === currentGenre;
     });
     console.log(filteredGenres);
-    setGame(filteredGenres);
+    setGames(filteredGenres);
     setCompleted({ ...completed, filteredCompletedGenres: true });
     if (completed.filteredCompletedGenres) {
-      setGame(gameInfo);
+      setGames(gameInfo);
       setCompleted({ ...completed, filteredCompletedGenres: false });
     }
   };
 
   const filteredPlatforms = (currentPlatform) => {
-    setGameInfo(game);
-    const filteredPlatforms = game.filter((item) => {
+    setGameInfo(games);
+    const filteredPlatforms = games.filter((item) => {
       console.log(item.genres);
       return item.platform === currentPlatform;
     });
     console.log(filteredPlatforms);
-    setGame(filteredPlatforms);
+    setGames(filteredPlatforms);
     setCompleted({ ...completed, filteredCompletedPlatforms: true });
     if (completed.filteredCompletedPlatforms) {
-      setGame(gameInfo);
+      setGames(gameInfo);
       setCompleted({ ...completed, filteredCompletedPlatforms: false });
     }
   };
 
   const onDelete = (id) => {
-    const newItem = game.filter((item) => item.id !== id);
-    setGame(newItem);
+    const newItem = games.filter((item) => item.id !== id);
+    setGames(newItem);
     saveItems(newItem);
   };
 
   return (
     <div>
       <div className="flex flex-row px-60 justify-around flex-wrap">
-        {game.map((item) => (
+        {games.map((item) => (
           <div className="">
             <div>
               <Link to={`/${item.id}`}>
@@ -81,11 +79,7 @@ function Games({
             </div>
             <div className="font-bold text-lg">{item.name}</div>
             <div>The description is: {item.description}</div>
-
-            <div>
-              Genres: {checkedInfo.genres[0]}{' '}
-              {checkedInfo.genres[1] !== 'null' ? checkedInfo.genres[1] : null}{' '}
-            </div>
+            <div>Genres: {[...item.genres].join(", ")}</div>
             <div>Platform: {item.platform}</div>
             {userInfo?.email === admin ? (
               <button

@@ -7,17 +7,13 @@ import TopBar from './TopBar';
 import GamesDetail from '../pages/GamesDetail';
 import AddGame from '../pages/AddGame.jsx';
 function Routing({
-  game,
+  games,
   details,
   addGame,
   setDetails,
-  setGame,
+  setGames,
   saveItems,
   handleCheckboxInfoGenres,
-  checkedInfo,
-  setCheckedInfo,
-  checkInfoDetails,
-  setCheckInfoDetails,
 }) {
   const [users, setUsers] = useState([]);
   const [signedIn, setSignedIn] = useState(false);
@@ -72,8 +68,6 @@ function Routing({
                   platforms={platforms}
                   genres={genres}
                   handleCheckboxInfoGenres={handleCheckboxInfoGenres}
-                  checkedInfo={checkedInfo}
-                  setCheckedInfo={setCheckedInfo}
                 />
               </Suspense>
             }
@@ -83,19 +77,17 @@ function Routing({
             element={
               <Suspense fallback={<h2>Loading...</h2>}>
                 <Games
-                  game={game}
-                  setGame={setGame}
+                  games={games}
+                  setGames={setGames}
                   saveItems={saveItems}
                   userInfo={userInfo}
                   genres={genres}
                   platforms={platforms}
-                  checkedInfo={checkedInfo}
-                  checkInfoDetails={checkInfoDetails}
                 />
               </Suspense>
             }
           />
-          <Route path="/:id" element={<GamesDetail game={game} />} />
+          <Route path="/:id" element={<GamesDetail games={games} />} />
           <Route path="*" element={<NotFoundPage />} />
 
           <Route

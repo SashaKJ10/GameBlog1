@@ -1,8 +1,6 @@
 import BasketballLogo from '../images/logo/basketball.png';
-import { useState } from 'react';
-import {Navigate} from 'react-router-dom'
 
-function AddGame({ details, addGame, setDetails, platforms, genres, handleCheckboxInfoGenres, checkedInfo, setCheckedInfo}) {
+function AddGame({ details, addGame, setDetails, platforms, genres, handleCheckboxInfoGenres }) {
   const classes = {
     inputFileStyles:
       'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400',
