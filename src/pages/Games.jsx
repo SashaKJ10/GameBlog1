@@ -1,6 +1,7 @@
 import FilterForm from '../components/FilterForm.jsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
   const classes = {
     inputFileStyles:
@@ -10,48 +11,17 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
     button2:
       'bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-2 rounded cursor-pointer',
   };
-  const [comments, setComments] = useState([]);
-  const [text, setText] = useState({ textContent: '' });
-  const [completed, setCompleted] = useState({
-    filteredCompletedGenres: false,
-    filteredCompletedPlatforms: false,
-  });
-  const [gameInfo, setGameInfo] = useState([]);
-  const addComment = () => {
-    const post = [...comments, text];
-    setComments(post);
-  };
 
   const admin = localStorage.getItem('admin');
 
-  const filteredGenres = (currentGenre) => {
-    setGameInfo(games);
-    const filteredGenres = games.filter((item) => {
-      console.log(item.genres);
-      return item.genres === currentGenre;
-    });
-    console.log(filteredGenres);
-    setGames(filteredGenres);
-    setCompleted({ ...completed, filteredCompletedGenres: true });
-    if (completed.filteredCompletedGenres) {
-      setGames(gameInfo);
-      setCompleted({ ...completed, filteredCompletedGenres: false });
-    }
-  };
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedPlatforms, setSelectedPlatforms] = useState([]);
 
-  const filteredPlatforms = (currentPlatform) => {
-    setGameInfo(games);
-    const filteredPlatforms = games.filter((item) => {
-      console.log(item.genres);
-      return item.platform === currentPlatform;
-    });
-    console.log(filteredPlatforms);
-    setGames(filteredPlatforms);
-    setCompleted({ ...completed, filteredCompletedPlatforms: true });
-    if (completed.filteredCompletedPlatforms) {
-      setGames(gameInfo);
-      setCompleted({ ...completed, filteredCompletedPlatforms: false });
-    }
+  const [comments, setComments] = useState([]);
+  const [text, setText] = useState({ textContent: '' });
+  const addComment = () => {
+    const post = [...comments, text];
+    setComments(post);
   };
 
   const onDelete = (id) => {
@@ -60,10 +30,33 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
     saveItems(newItem);
   };
 
+  const filterByGenres = (event, value) => {
+    let newSelectedGenres = selectedGenres;
+    if (event.target.checked) {
+      newSelectedGenres = [...newSelectedGenres, value];
+    } else {
+      newSelectedGenres = newSelectedGenres.filter((genre) => genre !== value);
+    }
+
+    setSelectedGenres(newSelectedGenres);
+  };
+
+  const filterByPlatforms = (event, value) => {
+    // TODO: Write logic here
+  };
+
+  const filteredGames = games.filter(game => {
+    if (!selectedGenres.every(genre => game.genres.includes(genre))){
+      return false;
+    }
+
+    return true;
+  });
+
   return (
     <div>
       <div className="flex flex-row px-60 justify-around flex-wrap">
-        {games.map((item) => (
+        {filteredGames.map((item) => (
           <div className="">
             <div>
               <Link to={`/${item.id}`}>
@@ -109,8 +102,8 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
         <FilterForm
           genres={genres}
           platforms={platforms}
-          filteredGenres={filteredGenres}
-          filteredPlatforms={filteredPlatforms}
+          filterByGenres={filterByGenres}
+          filterByPlatforms={filterByPlatforms}
         />
       </div>
     </div>
