@@ -36,7 +36,7 @@ function App() {
     } else {
       newGenres = newGenres.filter((genre) => genre !== value);
     }
-
+    //Something went wrong
     setDetails({
       ...details,
       genres: newGenres,
