@@ -42,14 +42,26 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
   };
 
   const filterByPlatforms = (event, value) => {
-    // TODO: Write logic here
+    let newSelectedPlatforms = selectedPlatforms;
+    if (event.target.checked) {
+      newSelectedPlatforms = [...selectedPlatforms, value];
+    } else {
+      newSelectedPlatforms = newSelectedPlatforms.filter(
+        (platform) => platform !== value
+      );
+    }
+    setSelectedPlatforms(newSelectedPlatforms);
   };
 
-  const filteredGames = games.filter(game => {
-    if (!selectedGenres.every(genre => game.genres.includes(genre))){
+  const filteredGames = games.filter((game) => {
+    if (!selectedGenres.every((genre) => game.genres.includes(genre))) {
       return false;
     }
-
+    if (
+      !selectedPlatforms.every((platform) => game.platforms.includes(platform))
+    ) {
+      return false;
+    }
     return true;
   });
 
