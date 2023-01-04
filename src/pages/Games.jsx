@@ -94,7 +94,7 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
               }
               type="text"
               />
-          </div>
+          </div>qq
           <button className={classes.button} onClick={addComment}>
             Post
             </button>
