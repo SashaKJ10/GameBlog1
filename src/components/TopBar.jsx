@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BasketballLogo from '../images/logo/basketball.png';
-
+import { GiAnts } from 'react-icons/gi';
 function TopBar({ signedIn, userInfo, setSignedIn }) {
   let [clickInfo, setClickInfo] = useState({
     gameButtonClicked: false,
@@ -34,8 +34,8 @@ function TopBar({ signedIn, userInfo, setSignedIn }) {
   });
   return (
     <div className="fixed top-0 flex w-full bg-gray-200 shadow border">
-      <div className="mt-2">
-        <img src={BasketballLogo} className="object-contain h-10 w-50" />
+      <div className="flex items-center justify-center">
+        <GiAnts className="h-10 w-10" />
       </div>
       <div className="text-blue-600/100 p-2 text-xl mt-1.5">GameHub</div>
       <div className="border-l-4 border-indigo-500 border-1 h-25"></div>
