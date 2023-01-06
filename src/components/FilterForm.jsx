@@ -7,7 +7,6 @@ const FilterForm = ({
   return (
     <div className="flex flex-col justify-around">
       <div className="px-10">
-        <h1>Filters</h1>
         <div className="py-5">
           <div>Genres: </div>
           {genres.map((genre) => (

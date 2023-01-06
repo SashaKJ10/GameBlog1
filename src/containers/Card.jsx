@@ -1,6 +1,6 @@
 function Card({ children }) {
   return (
-    <div className="flex flex-row  justify-between items-center bg-green-100 rounded  py-5 px-5">
+    <div className="flex flex-col  justify-between items-center  rounded shadow  py-5 px-5">
       {children}
     </div>
   );

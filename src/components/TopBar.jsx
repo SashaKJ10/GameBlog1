@@ -33,14 +33,14 @@ function TopBar({ signedIn, userInfo, setSignedIn }) {
     });
   });
   return (
-    <div className="fixed top-0 flex w-full bg-gray-200 shadow border">
+    <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300">
       <div className="flex items-center justify-center">
         <GiAnts className="h-10 w-10" />
       </div>
-      <div className="text-blue-600/100 p-2 text-xl mt-1.5">GameHub</div>
+      <div className="text-white-600/100 p-2 text-xl mt-1.5">GameHub</div>
       <div className="border-l-4 border-indigo-500 border-1 h-25"></div>
       <div className="flex w-full justify-between">
-        <div className="flex">
+        <div className="flex ">
           <div className="px-2 mt-3 mb-1">
             {signedInUser ? (
               <Link
@@ -80,6 +80,7 @@ function TopBar({ signedIn, userInfo, setSignedIn }) {
             </Link>
           </div>
         </div>
+
         <div className="flex">
           <div className="px-2 mt-3 mb-1">
             {signedUserInfo?.email === admin && signedInUser ? (

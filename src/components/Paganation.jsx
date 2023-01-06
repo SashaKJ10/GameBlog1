@@ -4,7 +4,7 @@ function Paganation() {
     <div>
       <ul className="flex flex-row gap-2 items-center justify-center mt-5">
         {numbers.map((number) => (
-          <li className="border-1 bg-green-100 w-5 h-5 flex justify-center items-center">
+          <li className="border-1 bg-green-300 hover:bg-green-500 w-5 h-5 flex justify-center items-center cursor-pointer">
             {number}
           </li>
         ))}
