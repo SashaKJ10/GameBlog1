@@ -1,7 +1,6 @@
 import Routing from './components/Routing';
 import TopBar from './components/TopBar';
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -89,6 +88,7 @@ function App() {
           saveItems={saveItems}
           handleCheckboxInfoGenres={handleCheckboxInfoGenres}
           handleCheckboxInfoPlatforms={handleCheckboxInfoPlatforms}
+          game={games}
         />
       </div>
     </div>

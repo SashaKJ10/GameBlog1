@@ -74,7 +74,7 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
           <Card>
             <div className="flex justify-center items-center">
               <Link to={`/${item.id}`}>
-                <img className="w-20 h-20" src={item.image} />
+                <img className="w-15 h-15" src={item.image} />
               </Link>
             </div>
             <div className="font-bold text-lg">{item.name}</div>
