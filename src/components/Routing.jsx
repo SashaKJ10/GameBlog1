@@ -43,6 +43,7 @@ function Routing({
         signedIn={signedIn}
         userInfo={userInfo}
         setSignedIn={setSignedIn}
+        games={games}
       />
       <Suspense>
         <Routes>
