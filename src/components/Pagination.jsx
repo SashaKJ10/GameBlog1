@@ -30,7 +30,7 @@ function Pagination({
   };
   return (
     <div>
-      <ul className="flex flex-row gap-2 items-center justify-center mt-5">
+      <ul className="flex flex-row gap-2 items-center justify-center mt-5 mb-5">
         {pagesArray.map((p) => (
           <li
             onClick={() => changePage(p)}
