@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getPageCount } from '../utils/pages';
 import { getPagesArray } from '../utils/pages';
+import { BiCaretLeft } from 'react-icons/bi';
+import { BiCaretRight } from 'react-icons/bi';
 
 function Pagination({
   totalPages,
@@ -28,22 +30,38 @@ function Pagination({
   const changePage = (pageInfo) => {
     setPage(pageInfo);
   };
+
+  const moveLeft = () => {
+    if (page !== 1) {
+      setPage(page--);
+    }
+  };
+
+  const moveRight = () => {
+    if (page !== totalCount.length) {
+      setPage(page++);
+    }
+  };
   return (
     <div>
       <ul className="flex flex-row gap-2 items-center justify-center mt-5 mb-5">
+        <BiCaretLeft onClick={moveRight} className="cursor-pointer w-8 h-8" />
         {pagesArray.map((p) => (
-          <li
-            onClick={() => changePage(p)}
-            key={p}
-            className={
-              page === p
-                ? classes.paginationButonClicked
-                : classes.paginationButtons
-            }
-          >
-            {p}
-          </li>
+          <div>
+            <li
+              onClick={() => changePage(p)}
+              key={p}
+              className={
+                page === p
+                  ? classes.paginationButonClicked
+                  : classes.paginationButtons
+              }
+            >
+              {p}
+            </li>
+          </div>
         ))}
+        <BiCaretRight onClick={moveLeft} className="cursor-pointer w-8 h-8" />
       </ul>
     </div>
   );

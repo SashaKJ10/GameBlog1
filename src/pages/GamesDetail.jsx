@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
 function GamesDetails({ games }) {
   const { id } = useParams();
+  console.log(id);
+  console.log(games[0].id);
   return (
     <div>
       {games.map((game) =>

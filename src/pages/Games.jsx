@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { GrTrash } from 'react-icons/gr';
 import Card from '../containers/Card';
 import Pagination from '../components/Pagination';
+import { BiArrowBack } from 'react-icons/bi';
+
 function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
   const classes = {
     inputFileStyles:
@@ -77,6 +79,7 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
     lastPostIndex
   );
 
+  console.log(paginatedFiltredGames);
   return (
     <div>
       <div className="flex flex-row px-60  flex-wrap">
@@ -130,6 +133,7 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
           filterByPlatforms={filterByPlatforms}
         />
       </div>
+
       <Pagination
         totalPages={totalPages}
         setTotalPages={setTotalPages}

@@ -63,6 +63,7 @@ function App() {
   const addGame = (e) => {
     e.preventDefault();
     let newGames = [...games, details];
+    console.log(newGames);
     setGames(newGames);
     setDetails({
       image: '',
