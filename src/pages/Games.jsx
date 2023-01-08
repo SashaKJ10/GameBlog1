@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GrTrash } from 'react-icons/gr';
 import Card from '../containers/Card';
-import Paganation from '../components/Paganation';
+import Pagination from '../components/Pagination';
 function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
   const classes = {
     inputFileStyles:
@@ -21,6 +21,9 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
 
   const [comments, setComments] = useState([]);
   const [text, setText] = useState({ textContent: '' });
+  const [totalPages, setTotalPages] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
   const addComment = () => {
     const post = [...comments, text];
     setComments(post);
@@ -67,10 +70,17 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
     return true;
   });
 
+  const lastPostIndex = page * limit;
+  const firstPostIndex = lastPostIndex - limit;
+  const paginatedFiltredGames = filteredGames.slice(
+    firstPostIndex,
+    lastPostIndex
+  );
+
   return (
     <div>
       <div className="flex flex-row px-60  flex-wrap">
-        {filteredGames.map((item) => (
+        {paginatedFiltredGames.map((item) => (
           <Card>
             <div className="flex justify-center items-center">
               <Link to={`/${item.id}`}>
@@ -120,7 +130,14 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
           filterByPlatforms={filterByPlatforms}
         />
       </div>
-      <Paganation />
+      <Pagination
+        totalPages={totalPages}
+        setTotalPages={setTotalPages}
+        limit={limit}
+        setLimit={setLimit}
+        page={page}
+        setPage={setPage}
+      />
     </div>
   );
 }
