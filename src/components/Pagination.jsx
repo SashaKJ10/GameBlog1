@@ -12,9 +12,9 @@ function Pagination({
 }) {
   const classes = {
     paginationButtons:
-      'border-1 bg-green-300 hover:bg-green-500 w-5 h-5 flex justify-center items-center cursor-pointer',
+      'border-1 p-5 bg-green-300 hover:bg-green-500 w-5 h-5 flex justify-center items-center cursor-pointer',
     paginationButonClicked:
-      'border-solid border-2 border-orange-300 font-bold border-1  bg-green-300 hover:bg-green-500 w-5 h-5 flex justify-center items-center cursor-pointer',
+      'border-solid border-2 p-5 border-orange-300 font-bold border-1  bg-green-300 hover:bg-green-500 w-5 h-5 flex justify-center items-center cursor-pointer',
   };
 
   const totalCount = JSON.parse(localStorage.getItem('items')).length;
