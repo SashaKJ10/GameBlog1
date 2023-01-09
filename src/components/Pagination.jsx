@@ -11,6 +11,8 @@ function Pagination({
   setLimit,
   page,
   setPage,
+  paginatedFiltredGames,
+  filteredGames,
 }) {
   const classes = {
     paginationButtons:
@@ -19,33 +21,32 @@ function Pagination({
       'border-solid border-2 p-5 border-orange-300 font-bold border-1  bg-green-300 hover:bg-green-500 w-5 h-5 flex justify-center items-center cursor-pointer',
   };
 
-  const totalCount = JSON.parse(localStorage.getItem('items')).length;
+  let totalCount = JSON.parse(localStorage.getItem('items')).length;
+
+  let pagesArray = getPagesArray(totalPages);
   useEffect(() => {
     console.log(`The pagination components total count is ${totalCount}`);
     setTotalPages(getPageCount(totalCount, limit));
     console.log(`The amount of pages is ${totalPages}`);
   }, [page]);
-  let pagesArray = getPagesArray(totalPages);
   console.log(pagesArray);
   const changePage = (pageInfo) => {
     setPage(pageInfo);
   };
 
   const moveLeft = () => {
-    if (page !== 1) {
-      setPage(page--);
-    }
+    if (page === 1) return;
+    setPage((prev) => prev - 1);
   };
 
   const moveRight = () => {
-    if (page !== totalCount.length) {
-      setPage(page++);
-    }
+    if (page === pagesArray.length) return;
+    setPage((prev) => prev + 1);
   };
   return (
     <div>
       <ul className="flex flex-row gap-2 items-center justify-center mt-5 mb-5">
-        <BiCaretLeft onClick={moveRight} className="cursor-pointer w-8 h-8" />
+        <BiCaretLeft onClick={moveLeft} className="cursor-pointer w-8 h-8" />
         {pagesArray.map((p) => (
           <div>
             <li
@@ -61,7 +62,7 @@ function Pagination({
             </li>
           </div>
         ))}
-        <BiCaretRight onClick={moveLeft} className="cursor-pointer w-8 h-8" />
+        <BiCaretRight onClick={moveRight} className="cursor-pointer w-8 h-8" />
       </ul>
     </div>
   );

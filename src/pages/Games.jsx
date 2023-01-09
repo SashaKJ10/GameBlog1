@@ -141,6 +141,8 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
         setLimit={setLimit}
         page={page}
         setPage={setPage}
+        paginatedFiltredGames={paginatedFiltredGames}
+        filteredGames={filteredGames}
       />
     </div>
   );

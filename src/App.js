@@ -62,6 +62,8 @@ function App() {
 
   const addGame = (e) => {
     e.preventDefault();
+    let id = Math.ceil(Math.random() * 1000);
+    details.id = id;
     let newGames = [...games, details];
     console.log(newGames);
     setGames(newGames);
