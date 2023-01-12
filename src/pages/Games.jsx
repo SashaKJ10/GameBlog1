@@ -1,10 +1,11 @@
 import FilterForm from '../components/FilterForm.jsx';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { GrTrash } from 'react-icons/gr';
 import Card from '../containers/Card';
 import Pagination from '../components/Pagination';
 import { BiArrowBack } from 'react-icons/bi';
+import { useEffect } from 'react';
 
 function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
   const classes = {
@@ -30,6 +31,26 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
     const post = [...comments, text];
     setComments(post);
   };
+
+  const filteredGames = games.filter((game) => {
+    if (!selectedGenres.every((genre) => game.genres.includes(genre))) {
+      return false;
+    }
+    if (
+      !selectedPlatforms.every((platform) => game.platforms.includes(platform))
+    ) {
+      return false;
+    }
+    return true;
+  });
+  const lastPostIndex = page * limit;
+  const firstPostIndex = lastPostIndex - limit;
+  const paginatedFiltredGames = filteredGames.slice(
+    firstPostIndex,
+    lastPostIndex
+  );
+
+  console.log(paginatedFiltredGames);
 
   const onDelete = (id) => {
     const newItem = games.filter((item) => item.id !== id);
@@ -60,26 +81,6 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
     setSelectedPlatforms(newSelectedPlatforms);
   };
 
-  const filteredGames = games.filter((game) => {
-    if (!selectedGenres.every((genre) => game.genres.includes(genre))) {
-      return false;
-    }
-    if (
-      !selectedPlatforms.every((platform) => game.platforms.includes(platform))
-    ) {
-      return false;
-    }
-    return true;
-  });
-
-  const lastPostIndex = page * limit;
-  const firstPostIndex = lastPostIndex - limit;
-  const paginatedFiltredGames = filteredGames.slice(
-    firstPostIndex,
-    lastPostIndex
-  );
-
-  console.log(paginatedFiltredGames);
   return (
     <div>
       <div className="flex flex-row px-60  flex-wrap">

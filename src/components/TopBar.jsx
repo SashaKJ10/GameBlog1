@@ -38,9 +38,11 @@ function TopBar({ signedIn, userInfo, setSignedIn, games }) {
   };
   return (
     <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300">
-      <div className="cursor-default flex items-center mx-2 my-1 px-2 py-1 rounded-lg border-2
-                      border-t-emerald-300 border-r-red-300 border-b-blue-300 border-l-pink-300">
-        <GiSwordSlice className="w-10 h-10 text-white"/>
+      <div
+        className="cursor-default flex items-center mx-2 my-1 px-2 py-1 rounded-lg border-2
+                      border-t-emerald-300 border-r-red-300 border-b-blue-300 border-l-pink-300"
+      >
+        <GiSwordSlice className="w-10 h-10 text-white" />
         <span className="ml-1 text-white text-xl">GameHub</span>
       </div>
       <div className="flex w-full justify-between">
@@ -113,12 +115,9 @@ function TopBar({ signedIn, userInfo, setSignedIn, games }) {
               required
             />
           </div>
-          <button
-            type="submit"
-            className={classes.button}
-          >
+          <button type="submit" className={classes.button}>
             <svg
-                className="w-5 h-5"
+              className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

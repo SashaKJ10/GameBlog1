@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { getPageCount } from '../utils/pages';
 import { getPagesArray } from '../utils/pages';
 import { BiCaretLeft } from 'react-icons/bi';
@@ -22,17 +22,20 @@ function Pagination({
   };
 
   let totalCount = JSON.parse(localStorage.getItem('items')).length;
+  let paginatedCount = filteredGames.length;
+  console.log(paginatedCount);
 
   let pagesArray = getPagesArray(totalPages);
-  useEffect(() => {
-    console.log(`The pagination components total count is ${totalCount}`);
-    setTotalPages(getPageCount(totalCount, limit));
-    console.log(`The amount of pages is ${totalPages}`);
-  }, [page]);
+
+  useMemo(() => {
+    setTotalPages(getPageCount(paginatedCount, limit));
+    pagesArray = getPagesArray(totalPages);
+  }, [paginatedCount]);
   console.log(pagesArray);
   const changePage = (pageInfo) => {
     setPage(pageInfo);
   };
+  console.log('----');
 
   const moveLeft = () => {
     if (page === 1) return;
