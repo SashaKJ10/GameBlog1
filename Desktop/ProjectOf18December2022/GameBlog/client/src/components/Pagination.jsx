@@ -35,6 +35,7 @@ function Pagination({
   const changePage = (pageInfo) => {
     setPage(pageInfo);
   };
+  console.log('----');
 
   const moveLeft = () => {
     if (page === 1) return;
