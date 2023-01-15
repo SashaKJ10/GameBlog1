@@ -41,7 +41,7 @@ function Pagination({
     dmax += n2 - curPageIndex;
   }
   if (curPageIndex >= pagesArray.length - n2) {
-    dmin += n2 - (pagesArray.length - curPageIndex - 1);
+    dmin += Math.floor(n2 - (pagesArray.length - curPageIndex - 1));
   }
   const getResult = () => {
     for (let i = 0; i < pagesArray.length; i++) {
