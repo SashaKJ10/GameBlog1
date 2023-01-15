@@ -52,6 +52,7 @@ function App() {
     let items = JSON.parse(localStorage.getItem('items') ?? '[]');
     console.log(items);
     setGames(items);
+
     localStorage.setItem('admin', 'sasha023@gmail.com');
   }, []);
 

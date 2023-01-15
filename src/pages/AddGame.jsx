@@ -1,5 +1,5 @@
 import BasketballLogo from '../images/logo/basketball.png';
-
+import { useEffect } from 'react';
 function AddGame({
   details,
   addGame,
@@ -32,6 +32,20 @@ function AddGame({
       };
     });
   };
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleKeyDown);
+
+  //   // return () => {
+  //   //   window.removeEventListener('keydown', handleKeyDown);
+  //   // };
+  // });
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      // 👇 Get input value
+      addGame();
+    }
+  };
 
   return (
     <div className="flex  items-center justify-center">
@@ -58,6 +72,7 @@ function AddGame({
               <input
                 type="checkbox"
                 value={`${genre[1]}`}
+                onKeyDown={handleKeyDown}
                 onChange={handleCheckboxInfoGenres}
               />
               <label className="font-medium antialiased">{genre[1]}</label>
