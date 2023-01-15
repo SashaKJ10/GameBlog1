@@ -37,8 +37,8 @@ function Pagination({
   let n2 = n1 / 2;
   let dmin = n2;
   let dmax = n2;
-  if (curPageIndex <= n2) {
-    dmax += n2 - curPageIndex;
+  if (curPageIndex < n2) {
+    dmax += Math.floor(n2 - curPageIndex);
   }
   if (curPageIndex >= pagesArray.length - n2) {
     dmin += Math.floor(n2 - (pagesArray.length - curPageIndex - 1));
