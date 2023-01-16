@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GiSwordSlice } from 'react-icons/gi';
-function TopBar({ signedIn, userInfo, setSignedIn, games }) {
+function TopBar({ setSignedIn }) {
   let [clickInfo, setClickInfo] = useState({
     gameButtonClicked: false,
     signInButtonClicked: false,
@@ -21,7 +21,6 @@ function TopBar({ signedIn, userInfo, setSignedIn, games }) {
     if (signedInUser) {
       setSignedIn(false);
       localStorage.removeItem('user');
-      console.log(signedInUser);
       localStorage.removeItem('userInfo');
     }
   };
@@ -31,11 +30,7 @@ function TopBar({ signedIn, userInfo, setSignedIn, games }) {
       setSignedIn(true);
     });
   });
-  const filterInput = (e) => {
-    let lowerCase = e.target.value.toLowerCase();
 
-    games.filter((game) => game.name.includes(lowerCase));
-  };
   return (
     <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300">
       <div
@@ -110,7 +105,7 @@ function TopBar({ signedIn, userInfo, setSignedIn, games }) {
             <input
               type="text"
               id="simple-search"
-              className="bg-gray-50 border w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search"
               required
             />

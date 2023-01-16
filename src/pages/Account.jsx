@@ -1,5 +1,5 @@
 import SnoopDog from '../images/UserImg/SnoopDog.jpg';
-function Account({ userInfo, signedIn }) {
+function Account() {
   const classes = {
     imageContainer: `flex flex-col items-center`,
     roleContainer: `flex items-center justify-center py-3`,
