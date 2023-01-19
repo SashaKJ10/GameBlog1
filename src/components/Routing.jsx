@@ -1,6 +1,5 @@
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import NotFoundPage from '../pages/NotFoundPage';
-import Account from '../pages/Account';
 import SignIn from '../pages/SignIn';
 import React, { useState, lazy, Suspense } from 'react';
 import TopBar from './TopBar';
@@ -32,9 +31,7 @@ function Routing({
     [1, 'Nintendo'],
     [2, 'PS5'],
   ];
-  let signedInUser = localStorage.getItem('user');
   const Games = lazy(() => import('../pages/Games.jsx'));
-  // const AddGame = lazy(() => import('../pages/AddGame.jsx'));
   const Account = lazy(() => import('../pages/Account.jsx'));
 
   return (
@@ -51,7 +48,7 @@ function Routing({
             path="/account"
             element={
               <Suspense fallback={<h1>Loading...</h1>}>
-                {signedInUser ? (
+                {signedIn ? (
                   <Account userInfo={userInfo} signedIn={signedIn} />
                 ) : (
                   <Navigate to="/" replace />

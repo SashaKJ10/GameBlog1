@@ -1,7 +1,5 @@
 import Routing from './components/Routing';
-import TopBar from './components/TopBar';
 import { useEffect, useState } from 'react';
-import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function App() {
@@ -50,7 +48,6 @@ function App() {
 
   useEffect(() => {
     let items = JSON.parse(localStorage.getItem('items') ?? '[]');
-    console.log(items);
     setGames(items);
     localStorage.setItem('admin', 'sasha023@gmail.com');
   }, []);
@@ -65,7 +62,6 @@ function App() {
     let id = Math.ceil(Math.random() * 1000);
     details.id = id;
     let newGames = [...games, details];
-    console.log(newGames);
     setGames(newGames);
     setDetails({
       image: '',

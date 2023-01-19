@@ -1,5 +1,4 @@
 import BasketballLogo from '../images/logo/basketball.png';
-
 function AddGame({
   details,
   addGame,

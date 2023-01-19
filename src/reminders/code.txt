@@ -1,5 +1,17 @@
+===============================================================================================
+ Add/implement the comments functionality to Games js code(file with the js extension) in the page folder. Be sure to add 
+the code that is commented out
+===============================================================================================
+
+
+
+
+
+
+
+
 import FilterForm from '../components/FilterForm.jsx';
-import { useState } from 'react';
+import { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { GrTrash } from 'react-icons/gr';
 import Card from '../containers/Card';
@@ -10,9 +22,17 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
 
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+
+  // const [comments, setComments] = useState([]);
+  // const [text, setText] = useState({ textContent: '' });
   const [totalPages, setTotalPages] = useState(0);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
+  // const addComment = () => {
+  //   const post = [...comments, text];
+  //   setComments(post);
+  // };
+
   const filteredGames = games.filter((game) => {
     if (!selectedGenres.every((genre) => game.genres.includes(genre))) {
       return false;
@@ -83,6 +103,26 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
             ) : null}
           </Card>
         ))}
+
+        {/* <div className="flex flex-row items-center justify-center gap-2 w-full">
+          <div className="flex flex-1 justify-end items-end">
+            <input
+              className={classes.inputFileStyles}
+              onChange={(e) =>
+                setText({ ...text, textContent: e.target.value })
+              }
+              type="text"
+              />
+          </div>
+          <button className={classes.button} onClick={addComment}>
+            Post
+            </button>
+            </div>
+            <div>
+            {comments.map((comment) => (
+            <div>{comment.textContent}</div>
+          ))}
+        </div> */}
       </div>
       <div className="fixed top-15 border shadow">
         <FilterForm
@@ -107,3 +147,20 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
   );
 }
 export default Games;
+   
+Helper function for searching functionality
+===========================================================
+   function filterItems(arr, query) {
+  return arr.filter((el) => el.toLowerCase().includes(query.toLowerCase()));
+}
+==============================================================
+
+
+Should have been in topbar component
+=================================
+const filterInput = (e) => {
+    let lowerCase = e.target.value.toLowerCase();
+
+    games.filter((game) => game.name.includes(lowerCase));
+  };
+===============================
