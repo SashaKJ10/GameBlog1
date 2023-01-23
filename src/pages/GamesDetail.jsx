@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { getGameById } from '../api/DataLoader';
-
+import CommentSection from '../components/CommentSection';
 function GamesDetails() {
   const { id } = useParams();
   const [game, setGame] = useState({
@@ -31,6 +31,7 @@ function GamesDetails() {
         <div>Platforms: {[...game.platforms].join(' ,')}</div>
         <div>Genres: {[...game.genres].join(' ,')}</div>
         <div>Description: {game.description}</div>
+        <CommentSection id={id} game={game} />
       </div>
     </div>
   );

@@ -1,17 +1,15 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { getPageCount } from '../utils/pages';
 import { getPagesArray } from '../utils/pages';
 import { BiCaretLeft } from 'react-icons/bi';
 import { BiCaretRight } from 'react-icons/bi';
-
+import { getResult } from '../utils/pages';
 function Pagination({
   totalPages,
   setTotalPages,
   limit,
-  setLimit,
   page,
   setPage,
-  paginatedFiltredGames,
   filteredGames,
 }) {
   const classes = {
@@ -20,22 +18,38 @@ function Pagination({
     paginationButonClicked:
       'border-solid border-2 p-5 border-orange-300 font-bold border-1  bg-green-300 hover:bg-green-500 w-5 h-5 flex justify-center items-center cursor-pointer',
   };
-
-  let totalCount = JSON.parse(localStorage.getItem('items')).length;
   let paginatedCount = filteredGames.length;
-  console.log(paginatedCount);
 
   let pagesArray = getPagesArray(totalPages);
 
+  const result = [];
+  let curPageIndex = page - 1;
+  let n1 = 5;
+  let n2 = n1 / 2;
+  let pagesBefore = n2;
+  let pagesAfter = n2;
+
+  if (curPageIndex < n2) {
+    pagesAfter += Math.floor(n2 - curPageIndex);
+  }
+  if (curPageIndex >= pagesArray.length - n2) {
+    pagesBefore += Math.floor(n2 - (pagesArray.length - curPageIndex - 1));
+  }
+
+  for (let i = 0; i < pagesArray.length; i++) {
+    if (i + pagesBefore >= curPageIndex && i - pagesAfter <= curPageIndex) {
+      result.push(pagesArray[i]);
+    }
+  }
   useMemo(() => {
     setTotalPages(getPageCount(paginatedCount, limit));
     pagesArray = getPagesArray(totalPages);
-  }, [paginatedCount]);
-  console.log(pagesArray);
+    // getResult(curPageIndex, n2, dmax, pagesArray, dmin, result);
+  }, [paginatedCount, result, page]);
+
   const changePage = (pageInfo) => {
     setPage(pageInfo);
   };
-  console.log('----');
 
   const moveLeft = () => {
     if (page === 1) return;
@@ -50,7 +64,7 @@ function Pagination({
     <div>
       <ul className="flex flex-row gap-2 items-center justify-center mt-5 mb-5">
         <BiCaretLeft onClick={moveLeft} className="cursor-pointer w-8 h-8" />
-        {pagesArray.map((p) => (
+        {result.map((p) => (
           <div>
             <li
               onClick={() => changePage(p)}
