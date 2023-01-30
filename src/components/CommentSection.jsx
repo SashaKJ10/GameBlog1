@@ -1,8 +1,14 @@
 import { useState, useMemo } from 'react';
 import { GrTrash } from 'react-icons/gr';
+import { MdThumbDown } from 'react-icons/md';
+import { MdThumbUp } from 'react-icons/md';
+
 function CommentSection({ id, game }) {
+  const [reply, setReply] = useState('');
   const [comments, setComments] = useState([]);
   const [userInput, setUserInput] = useState({ id: 0, comment: '', newId: 0 });
+  const [likes, setLikes] = useState({ id: 0, likesUp: 0, likesDown: 0 });
+  const [points, setPoints] = useState([]);
 
   useMemo(() => {
     let comment = JSON.parse(localStorage.getItem('comment') ?? '[]');
@@ -18,9 +24,34 @@ function CommentSection({ id, game }) {
     localStorage.setItem('comment', posts);
   };
 
+  function onThumbsUp() {
+    likes.id = id;
+    setLikes({ likes, likesUp: likes.likesUp++ });
+    const like = [...points, likes];
+    setPoints(like);
+    let likesValue = JSON.stringify(like);
+    localStorage.setItem('likes', likesValue);
+  }
+
+  function onThumbsDown() {
+    likes.id = id;
+    setLikes({ likes, likesDown: likes.likesDown++ });
+    const like = [...points, likes];
+    setPoints(like);
+    let likes = JSON.stringify(like);
+    localStorage.setItem('likes', likes);
+  }
+
   const onDelete = (id) => {
     const newComments = comments.filter((item) => item.newId !== id);
     setComments(newComments);
+    localStorage.setItem(JSON.stringify(newComments));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // send reply to API or store in local state
+    setReply('');
   };
   return (
     <div className="flex flex-col items-center justify-center">
@@ -40,18 +71,36 @@ function CommentSection({ id, game }) {
           Post
         </button>
       </div>
-      <div>
-        {comments?.map((com, i) => (
-          <div className="flex justify-center items-center bg-gray-200 shadow my-4 w-25 h-10 ">
+      <div className="flex flex-col">
+        {comments.map((com, i) => (
+          <div className="flex flex-row justify-center items-center  shadow my-4 ">
             {com.id === id ? (
-              <div>
-                <h1>{com.comment}</h1>
+              <div className=" ">
+                <h1 className="relative">{com.comment}</h1>
                 <GrTrash
                   className="cursor-pointer mx-3"
                   onClick={() => onDelete(com.newId)}
                 />
+                <MdThumbUp onClick={onThumbsUp} />
+                <span className="flex flex-row">
+                  {points.map((el) => (
+                    <div>{el.likesUp}</div>
+                  ))}
+                </span>
+                <MdThumbDown onClick={onThumbsDown} />
+                <span className="flex flex-row">{likes.likesDown}</span>
+                <button>Reply</button>
               </div>
             ) : null}
+            {reply && (
+              <form onSubmit={handleSubmit}>
+                <textarea
+                  value={reply}
+                  onChange={(event) => setReply(event.target.value)}
+                />
+                <button type="submit">Submit Reply</button>
+              </form>
+            )}
           </div>
         ))}
       </div>
