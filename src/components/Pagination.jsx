@@ -3,7 +3,7 @@ import { getPageCount } from '../utils/pages';
 import { getPagesArray } from '../utils/pages';
 import { BiCaretLeft } from 'react-icons/bi';
 import { BiCaretRight } from 'react-icons/bi';
-
+import { getResult } from '../utils/pages';
 function Pagination({
   totalPages,
   setTotalPages,
@@ -42,12 +42,29 @@ function Pagination({
     }
   };
 
+  const result = [];
+  let curPageIndex = page - 1;
+  let n1 = 5;
+  let n2 = n1 / 2;
+  let pagesBefore = n2;
+  let pagesAfter = n2;
+
+  if (curPageIndex < n2) {
+    pagesAfter += Math.floor(n2 - curPageIndex);
+  }
+  if (curPageIndex >= pagesArray.length - n2) {
+    pagesBefore += Math.floor(n2 - (pagesArray.length - curPageIndex - 1));
+  }
+
+  for (let i = 0; i < pagesArray.length; i++) {
+    if (i + pagesBefore >= curPageIndex && i - pagesAfter <= curPageIndex) {
+      result.push(pagesArray[i]);
+    }
+  }
   useMemo(() => {
     setTotalPages(getPageCount(paginatedCount, limit));
     pagesArray = getPagesArray(totalPages);
-    getResult();
-  }, [paginatedCount, result, page]);
-
+  }, [paginatedCount]);
   console.log(pagesArray);
   const changePage = (pageInfo) => {
     setPage(pageInfo);
