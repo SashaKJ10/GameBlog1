@@ -41,14 +41,14 @@ function Comment({
     <div classNme="p-4 bg-gray-300 rounded-lg shadow-md">
       <p className="text-gray-700 font-medium mb-2">Comment:</p>
       <p className="text-gray-700 text-xl mb-4">{comment.text}</p>
-      {admin ? (
+      {/* {admin ? (
         <button
           className="bg-gray-400 rounded p-2 ml-2"
           onClick={() => deleteComment(comment.id)}
         >
           Delete
         </button>
-      ) : null}
+      ) : null} */}
       {replies.map((reply, index) => (
         <div
           key={reply.replyId}
