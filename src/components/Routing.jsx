@@ -59,32 +59,32 @@ function Routing({
           <Route
             path="/editing"
             element={
-              <Suspense fallback={<h2>Loading...</h2>}>
-                <AddGame
-                  details={details}
-                  addGame={addGame}
-                  setDetails={setDetails}
-                  platforms={platforms}
-                  genres={genres}
-                  handleCheckboxInfoGenres={handleCheckboxInfoGenres}
-                  handleCheckboxInfoPlatforms={handleCheckboxInfoPlatforms}
-                />
-              </Suspense>
+              // <Suspense fallback={<h2>Loading...</h2>}>
+              <AddGame
+                details={details}
+                addGame={addGame}
+                setDetails={setDetails}
+                platforms={platforms}
+                genres={genres}
+                handleCheckboxInfoGenres={handleCheckboxInfoGenres}
+                handleCheckboxInfoPlatforms={handleCheckboxInfoPlatforms}
+              />
+              // </Suspense>
             }
           />
           <Route
             path="/"
             element={
-              <Suspense fallback={<h2>Loading...</h2>}>
-                <Games
-                  games={games}
-                  setGames={setGames}
-                  saveItems={saveItems}
-                  userInfo={userInfo}
-                  genres={genres}
-                  platforms={platforms}
-                />
-              </Suspense>
+              // <Suspense fallback={<h2>Loading...</h2>}>
+              <Games
+                games={games}
+                setGames={setGames}
+                saveItems={saveItems}
+                userInfo={userInfo}
+                genres={genres}
+                platforms={platforms}
+              />
+              // </Suspense>
             }
           />
           <Route path="/:id" element={<GamesDetail games={games} />} />
