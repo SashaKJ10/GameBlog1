@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 import { getGameById } from '../api/DataLoader';
 import CommentList from '../components/CommentList';
-function GamesDetails() {
+function GamesDetails({ userInfo, signedIn }) {
   const { id } = useParams();
   const [game, setGame] = useState({
     id: 0,
@@ -31,7 +31,9 @@ function GamesDetails() {
         <div>Platforms: {[...game.platforms].join(' ,')}</div>
         <div>Genres: {[...game.genres].join(' ,')}</div>
         <div>Description: {game.description}</div>
-        <CommentList />
+        <div className="mt-10">
+          <CommentList userInfo={userInfo} signedIn={signedIn} />
+        </div>
       </div>
     </div>
   );

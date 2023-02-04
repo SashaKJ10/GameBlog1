@@ -1,12 +1,12 @@
 import Comment from './Comment';
 import React, { useState, useEffect, useCallback } from 'react';
 
-function CommentList() {
+function CommentList({ userInfo }) {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(0);
   const [showReplyInputs, setShowReplyInputs] = useState({});
-
+  const admin = localStorage.getItem('admin');
   useEffect(() => {
     const commentsFromLocalStorage = JSON.parse(
       localStorage.getItem(`comments-${window.location.pathname}`)
@@ -44,11 +44,23 @@ function CommentList() {
     [setShowReplyInputs]
   );
 
-  // function deleteComment(id) {
-  //   const newComments = comments.filter((comment) => comment.id !== id);
-  //   setComments(newComments);
-
-  // }
+  const handleDeleteComment = useCallback(
+    (id) => {
+      if (admin) {
+        const newComments = comments.filter((comment) => {
+          if (comment.parentId === id) return false;
+          console.log(comment.parentId);
+          return comment.id !== id;
+        });
+        setComments(newComments);
+        localStorage.setItem(
+          `comments-${window.location.pathname}`,
+          JSON.stringify(newComments)
+        );
+      }
+    },
+    [comments]
+  );
   return (
     <div className="p-4">
       <form onSubmit={handleCommentSubmit}>
@@ -73,11 +85,13 @@ function CommentList() {
             key={comment.id}
             comment={comment}
             showReplyInput={showReplyInputs[comment.id] || false}
-            deleteComment={deleteComment}
+            deleteComment={handleDeleteComment}
+            userInfo={userInfo}
+            handleToggleReplyInput
           />
           <button
             onClick={() => handleToggleReplyInput(comment.id)}
-            className="bg-gray-400 rounded p-2 ml-2"
+            className="bg-gray-400 rounded p-2 ml-2 mt-2"
           >
             Reply
           </button>

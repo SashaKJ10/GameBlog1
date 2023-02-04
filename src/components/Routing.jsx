@@ -87,7 +87,16 @@ function Routing({
               // </Suspense>
             }
           />
-          <Route path="/:id" element={<GamesDetail games={games} />} />
+          <Route
+            path="/:id"
+            element={
+              <GamesDetail
+                games={games}
+                userInfo={userInfo}
+                signedIn={signedIn}
+              />
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
 
           <Route
