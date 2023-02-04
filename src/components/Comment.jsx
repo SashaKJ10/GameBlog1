@@ -36,7 +36,7 @@ function Comment({
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      let id = replyId
+      let id = replyId;
       setReplies([...replies, { replyId: id, reply: reply }]);
       setReply('');
       setReplyId((prev) => prev + 1);
@@ -45,8 +45,7 @@ function Comment({
   );
 
   return (
-    // <div className="py-4 mt-5 bg-gray-300 rounded-lg shadow-md  ">
-    <div className="">
+    <div className="py-4 mt-5 bg-gray-300 rounded-lg shadow-md  ">
       <p className="flex justify-center text-white font-medium bg-blue-500 p-4 rounded-lg mb-4 mt-7">
         {comment.text}
       </p>
