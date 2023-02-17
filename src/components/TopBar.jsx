@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GiSwordSlice } from 'react-icons/gi';
-function TopBar({ setSignedIn }) {
+function TopBar({
+  signedIn,
+  userInfo,
+  setSignedIn,
+  games,
+  handleSearch,
+  search,
+  setSearch,
+}) {
   let [clickInfo, setClickInfo] = useState({
     gameButtonClicked: false,
     signInButtonClicked: false,
@@ -9,14 +17,20 @@ function TopBar({ setSignedIn }) {
     addGameButtonClicked: false,
   });
 
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
   const classes = {
     button:
       'bg-green-500/75 whitespace-nowrap hover:bg-green-600/75 text-white font-bold py-2 px-2 rounded cursor-pointer',
     buttonClicked:
       'bg-blue-500/75 whitespace-nowrap hover:bg-blue-600/75 text-white font-bold py-2 px-2 rounded cursor-pointer',
   };
+
   let admin = localStorage.getItem('admin');
   let signedInUser = localStorage.getItem('user');
+
   const LogOut = (e) => {
     if (signedInUser) {
       setSignedIn(false);
@@ -32,7 +46,7 @@ function TopBar({ setSignedIn }) {
   });
 
   return (
-    <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300">
+    <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300 z-10">
       <div
         className="cursor-default flex items-center mx-2 my-1 px-2 py-1 rounded-lg border-2
                       border-t-emerald-300 border-r-red-300 border-b-blue-300 border-l-pink-300"
@@ -82,7 +96,13 @@ function TopBar({ setSignedIn }) {
           </div>
         </div>
 
-        <form className="flex items-center w-1/2">
+        <form
+          className="flex items-center w-1/2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+        >
           <label for="simple-search" class="sr-only">
             Search
           </label>
@@ -107,6 +127,8 @@ function TopBar({ setSignedIn }) {
               id="simple-search"
               className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search"
+              value={search}
+              onChange={handleSearch}
               required
             />
           </div>

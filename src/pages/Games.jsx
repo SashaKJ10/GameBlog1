@@ -60,7 +60,7 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
   };
 
   return (
-    <div>
+    <div className="mt-6.25">
       <div className="flex flex-row px-60  flex-wrap">
         {paginatedFiltredGames.map((item) => (
           <Card>
@@ -84,7 +84,7 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
           </Card>
         ))}
       </div>
-      <div className="fixed top-15 border shadow">
+      <div className="fixed top-16 border-shadow">
         <FilterForm
           genres={genres}
           platforms={platforms}

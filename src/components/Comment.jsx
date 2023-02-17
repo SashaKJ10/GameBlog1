@@ -5,6 +5,7 @@ function Comment({
   setShowReplyInput,
   deleteComment,
   handleToggleReplyInput,
+  userInfo,
 }) {
   const [reply, setReply] = useState('');
   const [replies, setReplies] = useState([]);
@@ -37,6 +38,7 @@ function Comment({
     (event) => {
       event.preventDefault();
       let id = replyId;
+      if (reply.length === 0) return;
       setReplies([...replies, { replyId: id, reply: reply }]);
       setReply('');
       setReplyId((prev) => prev + 1);
@@ -45,8 +47,11 @@ function Comment({
   );
 
   return (
-    <div className="py-4 mt-5 bg-gray-300 rounded-lg shadow-md  ">
-      <p className="flex justify-center text-white font-medium bg-blue-500 p-4 rounded-lg mb-4 mt-7">
+    <div className="py-4 mt-5 bg-gray-300 rounded-lg shadow-md ">
+      <span className="font-serif font-size-6 px-2">
+        Posted by {userInfo.email}
+      </span>
+      <p className="flex justify-center text-white font-medium bg-blue-500 px-13 py-5 rounded-lg mb-4 mt-7">
         {comment.text}
       </p>
       {signedUserInfo.email === admin && signedIn ? (
@@ -64,7 +69,13 @@ function Comment({
           key={reply.replyId}
           className="flex flex-col p-4 bg-gray-200 rounded-lg shadow-sm mt-4 w-full"
         >
-          <p className="text-gray-700 font-medium mb-2 w-80">Reply:</p>
+          <p className=" text-gray-700 font-medium mb-2 w-80">
+            Reply from
+            <span className="font-serif font-size-6 px-2">
+              {userInfo.email}
+            </span>
+          </p>
+
           <p
             key={index}
             className="text-gray-500 pl-4 font-medium font-size-1.2rem px-13"
@@ -78,6 +89,7 @@ function Comment({
         <form onSubmit={handleSubmit} className="mb-4 py-5">
           <div>
             <input
+              required
               value={reply}
               onChange={(event) => setReply(event.target.value)}
               className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"

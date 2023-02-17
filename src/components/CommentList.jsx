@@ -7,6 +7,9 @@ function CommentList({ userInfo }) {
   const [commentId, setCommentId] = useState(0);
   const [showReplyInputs, setShowReplyInputs] = useState({});
   const admin = localStorage.getItem('admin');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonCommentDisabled, setIsButtonCommentDisabled] = useState(false);
+
   useEffect(() => {
     const commentsFromLocalStorage = JSON.parse(
       localStorage.getItem(`comments-${window.location.pathname}`)
@@ -27,6 +30,7 @@ function CommentList({ userInfo }) {
   const handleCommentSubmit = useCallback(
     (event) => {
       event.preventDefault();
+      if (commentText.length === 0) return;
       setComments([...comments, { id: commentId, text: commentText }]);
       setCommentText('');
       setCommentId(commentId + 1);
@@ -41,7 +45,7 @@ function CommentList({ userInfo }) {
         [commentId]: !prevShowReplyInputs[commentId],
       }));
     },
-    [setShowReplyInputs]
+    [setShowReplyInputs, userInfo, isButtonDisabled]
   );
 
   const handleDeleteComment = useCallback(
@@ -74,6 +78,9 @@ function CommentList({ userInfo }) {
           <button
             className="flex flex-row bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             type="submit"
+            disabled={
+              !userInfo.email || !userInfo.password || isButtonCommentDisabled
+            }
           >
             Post
           </button>
@@ -92,6 +99,7 @@ function CommentList({ userInfo }) {
           <button
             onClick={() => handleToggleReplyInput(comment.id)}
             className="bg-gray-400 rounded p-2 ml-2 mt-2"
+            disabled={!userInfo.email || !userInfo.password || isButtonDisabled}
           >
             Reply
           </button>

@@ -76,20 +76,17 @@ function App() {
   };
 
   return (
-    <div className="flex-row items-start">
-      <div className="absolute top-13 w-full">
-        <Routing
-          games={games}
-          details={details}
-          addGame={addGame}
-          setDetails={setDetails}
-          setGames={setGames}
-          saveItems={saveItems}
-          handleCheckboxInfoGenres={handleCheckboxInfoGenres}
-          handleCheckboxInfoPlatforms={handleCheckboxInfoPlatforms}
-          game={games}
-        />
-      </div>
+    <div className="flex flex-col top-3.7 absolute w-full">
+      <Routing
+        games={games}
+        details={details}
+        addGame={addGame}
+        setDetails={setDetails}
+        setGames={setGames}
+        saveItems={saveItems}
+        handleCheckboxInfoGenres={handleCheckboxInfoGenres}
+        handleCheckboxInfoPlatforms={handleCheckboxInfoPlatforms}
+      />
     </div>
   );
 }

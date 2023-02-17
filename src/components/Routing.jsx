@@ -31,8 +31,21 @@ function Routing({
     [1, 'Nintendo'],
     [2, 'PS5'],
   ];
+
+  let gamesContent = localStorage.getItem('items');
+  const [search, setSearch] = useState('');
+  const [filteredData, setFilteredData] = useState(games);
   const Games = lazy(() => import('../pages/Games.jsx'));
   const Account = lazy(() => import('../pages/Account.jsx'));
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    const filtered = games.filter((item) => {
+      return item.name.toLowerCase().includes(search.toLowerCase());
+    });
+    setGames(filtered);
+  };
 
   return (
     <div>
@@ -41,6 +54,9 @@ function Routing({
         userInfo={userInfo}
         setSignedIn={setSignedIn}
         games={games}
+        handleSearch={handleSearch}
+        search={search}
+        setSearch={setSearch}
       />
       <Suspense>
         <Routes>
