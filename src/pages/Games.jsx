@@ -5,31 +5,9 @@ import { GrTrash } from 'react-icons/gr';
 import Card from '../containers/Card';
 import Pagination from '../components/Pagination';
 
-function Games({ games, setGames, saveItems, userInfo, platforms, genres }) {
+function Games({ games, setGames, saveItems, userInfo, platforms, genres, filteredGames,  selectedGenres, selectedPlatforms,setSelectedGenres, setSelectedPlatforms, paginatedFiltredGames, totalPages, setTotalPages, limit, setLimit, page, setPage }) {
   const admin = localStorage.getItem('admin');
 
-  const [selectedGenres, setSelectedGenres] = useState([]);
-  const [selectedPlatforms, setSelectedPlatforms] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(1);
-  const filteredGames = games.filter((game) => {
-    if (!selectedGenres.every((genre) => game.genres.includes(genre))) {
-      return false;
-    }
-    if (
-      !selectedPlatforms.every((platform) => game.platforms.includes(platform))
-    ) {
-      return false;
-    }
-    return true;
-  });
-  const lastPostIndex = page * limit;
-  const firstPostIndex = lastPostIndex - limit;
-  const paginatedFiltredGames = filteredGames.slice(
-    firstPostIndex,
-    lastPostIndex
-  );
   const onDelete = (id) => {
     const newItem = games.filter((item) => item.id !== id);
     setGames(newItem);

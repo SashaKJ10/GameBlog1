@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { GiSwordSlice } from 'react-icons/gi';
 function TopBar({
@@ -9,6 +9,8 @@ function TopBar({
   handleSearch,
   search,
   setSearch,
+  paginatedFiltredGames,
+  setGames
 }) {
   let [clickInfo, setClickInfo] = useState({
     gameButtonClicked: false,
@@ -17,8 +19,8 @@ function TopBar({
     addGameButtonClicked: false,
   });
 
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
+  function handleSearchChange(e){
+    setSearch(e.target.value);  
   };
 
   const classes = {
@@ -39,11 +41,41 @@ function TopBar({
     }
   };
   let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
+  const currentItems = JSON.parse(localStorage.getItem('items'))
   useEffect(() => {
     window.addEventListener('load', (event) => {
       setSignedIn(true);
     });
-  });
+    if(search === ""){
+      setGames(currentItems)
+    }
+  }, []);
+  const submit = (e) => {
+    e.preventDefault();
+  
+    // Get the current items from local storage
+    const items = JSON.parse(localStorage.getItem('items'));
+  
+    // Check if the original items are already stored in local storage
+    let originalItems = JSON.parse(localStorage.getItem('originalItems'));
+    if (!originalItems) {
+      // If not, store the current items as the original items
+      localStorage.setItem('originalItems', JSON.stringify(items));
+      originalItems = items;
+    }
+  
+    // Filter the items based on the search term
+    const searchedPosts = search !== ""
+      ? originalItems.filter(game => game.name.toLowerCase().includes(search))
+      : originalItems;
+  console.log(searchedPosts)
+  setGames(searchedPosts)
+    // Update the "items" key in local storage with the filtered data
+    localStorage.setItem("items", JSON.stringify(searchedPosts));
+  }
+  
+  
+  
 
   return (
     <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300 z-10">
@@ -98,10 +130,7 @@ function TopBar({
 
         <form
           className="flex items-center w-1/2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSearch();
-          }}
+          onSubmit={submit}
         >
           <label for="simple-search" class="sr-only">
             Search
@@ -128,7 +157,7 @@ function TopBar({
               className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search"
               value={search}
-              onChange={handleSearch}
+              onChange={handleSearchChange}
               required
             />
           </div>

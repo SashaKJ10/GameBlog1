@@ -25,16 +25,16 @@ function GamesDetails({ userInfo, signedIn }) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gradient-to-r from-purple-800 to-indigo-900">
+    <div className="flex flex-col items-center justify-center">
       <div className="">
         <TransitionGroup component={null}>
           <CSSTransition timeout={500} classNames="fade">
             <div className="flex flex-col items-center justify-center">
               <img
-                className="w-500 h-500 rounded-lg  overflow-hidden shadow-lg transform duration-500 ease-in-out hover:scale-105 z-5"
+                className="w-200 h-13 rounded-lg mt-10 overflow-hidden shadow-lg transform duration-500 ease-in-out hover:scale-105 z-5"
                 src={game.image}
               />
-              <div className="px-6 py-4 bg-blue-300 rounded-lg shadow-lg mt-3">
+              <div className="px-6 py-4 bg-blue-300 rounded-lg shadow-lg mt-3 w-30 flex items-center justify-center flex-col">
                 <div className="font-bold font-julee text-4xl mb-2">
                   Name: {game.name}
                 </div>

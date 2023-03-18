@@ -4,6 +4,7 @@ const FilterForm = ({
   filterByGenres,
   filterByPlatforms,
 }) => {
+
   return (
     <div className="flex flex-col items-center justify-center relative bottom-5 bg-gray-300 p-10 rounded-lg">
       <div className="mb-5 font-bold text-lg">Genres:</div>
@@ -14,8 +15,9 @@ const FilterForm = ({
               type="checkbox"
               className="form-checkbox text-indigo-600"
               onChange={(event) => filterByGenres(event, genre[1])}
+              id={genre[1]}
             />
-            <label className="ml-2 text-gray-700">{genre[1]}</label>
+            <label htmlFor={genre[1]} className="ml-2 text-gray-700">{genre[1]}</label>
           </div>
         ))}
       </div>
@@ -27,8 +29,9 @@ const FilterForm = ({
               type="checkbox"
               className="form-checkbox text-indigo-600"
               onChange={(event) => filterByPlatforms(event, platform[1])}
+              id={platform[1]}
             />
-            <label className="ml-2 text-gray-700">{platform[1]}</label>
+            <label htmlFor={platform[1]} className="ml-2 text-gray-700">{platform[1]}</label>
           </div>
         ))}
       </div>

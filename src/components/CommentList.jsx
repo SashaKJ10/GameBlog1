@@ -70,7 +70,7 @@ function CommentList({ userInfo }) {
       <form onSubmit={handleCommentSubmit}>
         <div className="flex gap-2">
           <input
-            className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
+            className="w-50 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
             value={commentText}
             placeholder="Add a comment..."
             onChange={(event) => setCommentText(event.target.value)}

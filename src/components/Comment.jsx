@@ -94,13 +94,15 @@ function Comment({
               onChange={(event) => setReply(event.target.value)}
               className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
             />
+            <div className='flex items-end justify-end px-5'>
             <button
               type="submit"
               onClick={handleSubmit}
               className="mt-6 bg-gray-400 rounded p-2 ml-2"
-            >
-              Submit Your Reply
+              >
+              Post
             </button>
+              </div>
           </div>
         </form>
       )}
