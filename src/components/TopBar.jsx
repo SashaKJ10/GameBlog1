@@ -1,27 +1,18 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { GiSwordSlice } from 'react-icons/gi';
+
 function TopBar({
-  signedIn,
-  userInfo,
   setSignedIn,
-  games,
-  handleSearch,
-  search,
-  setSearch,
-  paginatedFiltredGames,
-  setGames
+  setGlobalSearch
 }) {
-  let [clickInfo, setClickInfo] = useState({
+  const [search, setSearch] = useState('');
+  const [clickInfo, setClickInfo] = useState({
     gameButtonClicked: false,
     signInButtonClicked: false,
     accountButtonClicked: false,
     addGameButtonClicked: false,
   });
-
-  function handleSearchChange(e){
-    setSearch(e.target.value);  
-  };
 
   const classes = {
     button:
@@ -32,6 +23,7 @@ function TopBar({
 
   let admin = localStorage.getItem('admin');
   let signedInUser = localStorage.getItem('user');
+  let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
 
   const LogOut = (e) => {
     if (signedInUser) {
@@ -40,42 +32,15 @@ function TopBar({
       localStorage.removeItem('userInfo');
     }
   };
-  let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
-  const currentItems = JSON.parse(localStorage.getItem('items'))
-  useEffect(() => {
-    window.addEventListener('load', (event) => {
-      setSignedIn(true);
-    });
-    if(search === ""){
-      setGames(currentItems)
-    }
-  }, []);
+
   const submit = (e) => {
     e.preventDefault();
-  
-    // Get the current items from local storage
-    const items = JSON.parse(localStorage.getItem('items'));
-  
-    // Check if the original items are already stored in local storage
-    let originalItems = JSON.parse(localStorage.getItem('originalItems'));
-    if (!originalItems) {
-      // If not, store the current items as the original items
-      localStorage.setItem('originalItems', JSON.stringify(items));
-      originalItems = items;
-    }
-  
-    // Filter the items based on the search term
-    const searchedPosts = search !== ""
-      ? originalItems.filter(game => game.name.toLowerCase().includes(search))
-      : originalItems;
-  console.log(searchedPosts)
-  setGames(searchedPosts)
-    // Update the "items" key in local storage with the filtered data
-    localStorage.setItem("items", JSON.stringify(searchedPosts));
+    setGlobalSearch(search);
   }
-  
-  
-  
+
+  function handleSearchChange(e){
+    setSearch(e.target.value);
+  }
 
   return (
     <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300 z-10">

@@ -5,7 +5,10 @@ import { useNavigate } from 'react-router-dom';
 function App() {
   const navigate = useNavigate();
 
+  // TODO: Task 3 - move games to localStorage and get its value from localStorage on related pages
   const [games, setGames] = useState([]);
+
+  // TODO: Task 4 - move this value and related functions to AddGame page
   const [details, setDetails] = useState({
     image: '',
     name: '',
@@ -75,6 +78,7 @@ function App() {
     navigate('/');
   };
 
+  // TODO: Task 5 - Routing component shouldn't have props
   return (
     <div className="flex flex-col top-3.7 absolute w-full">
       <Routing

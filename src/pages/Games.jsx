@@ -1,12 +1,38 @@
 import FilterForm from '../components/FilterForm.jsx';
-import { useState } from 'react';
+import {useMemo, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { GrTrash } from 'react-icons/gr';
 import Card from '../containers/Card';
 import Pagination from '../components/Pagination';
 
-function Games({ games, setGames, saveItems, userInfo, platforms, genres, filteredGames,  selectedGenres, selectedPlatforms,setSelectedGenres, setSelectedPlatforms, paginatedFiltredGames, totalPages, setTotalPages, limit, setLimit, page, setPage }) {
-  const admin = localStorage.getItem('admin');
+function Games({ userInfo, games, genres, platforms, setGames, saveItems, globalSearch }) {
+    const admin = localStorage.getItem('admin');
+
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+
+    const [totalPages, setTotalPages] = useState(0);
+    const [limit, setLimit] = useState(10);
+    const [page, setPage] = useState(1);
+
+    const lastPostIndex = page * limit;
+    const firstPostIndex = lastPostIndex - limit;
+
+    const filteredGames = games.filter((game) => {
+        if (!selectedGenres.every((genre) => game.genres.includes(genre))) {
+            return false;
+        }
+        if (!selectedPlatforms.every((platform) => game.platforms.includes(platform))) {
+            return false;
+        }
+        // TODO: Task 1 - Add globalSearch filtering HERE
+        return true;
+    });
+
+    const paginatedFiltredGames = filteredGames.slice(
+        firstPostIndex,
+        lastPostIndex
+    );
 
   const onDelete = (id) => {
     const newItem = games.filter((item) => item.id !== id);
@@ -78,8 +104,7 @@ function Games({ games, setGames, saveItems, userInfo, platforms, genres, filter
         setLimit={setLimit}
         page={page}
         setPage={setPage}
-        paginatedFiltredGames={paginatedFiltredGames}
-        filteredGames={filteredGames}
+        filteredGamesCount={filteredGames.length}
       />
     </div>
   );

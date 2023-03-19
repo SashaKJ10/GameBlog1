@@ -10,7 +10,7 @@ function Pagination({
   limit,
   page,
   setPage,
-  filteredGames,
+  filteredGamesCount,
 }) {
   const classes = {
     paginationButtons:
@@ -18,7 +18,7 @@ function Pagination({
     paginationButonClicked:
       'border-solid border-2 p-5 border-orange-300 font-bold border-1  bg-green-300 hover:bg-green-500 w-5 h-5 flex justify-center items-center cursor-pointer',
   };
-  let paginatedCount = filteredGames.length;
+  let paginatedCount = filteredGamesCount;
 
   let pagesArray = getPagesArray(totalPages);
 
@@ -48,9 +48,9 @@ function Pagination({
     getResult();
   }, [paginatedCount, result, page]);
 
-  console.log(pagesArray);
   const changePage = (pageInfo) => {
     setPage(pageInfo);
+    console.log(pagesArray);
   };
 
   const moveLeft = () => {
@@ -62,6 +62,7 @@ function Pagination({
     if (page === pagesArray.length) return;
     setPage((prev) => prev + 1);
   };
+
   return (
     <div>
       <ul className="flex flex-row gap-2 items-center justify-center mt-5 mb-5">
