@@ -22,7 +22,7 @@ function Comment({
     }
     console.log(window.location.pathname);
   }, []);
-
+  let games = localStorage.getItem('items')
   console.log(comment);
   useEffect(() => {
     localStorage.setItem(
@@ -52,6 +52,9 @@ function Comment({
         Posted by {userInfo.email}
       </span>
       <p className="flex justify-center text-white font-medium bg-blue-500 px-13 py-5 rounded-lg mb-4 mt-7">
+        {/* {games.comments.map(comment => (
+          <div className='font-40'>{comment}</div>
+        ))} */}
         {comment.text}
       </p>
       {signedUserInfo.email === admin && signedIn ? (

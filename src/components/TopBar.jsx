@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GiSwordSlice } from 'react-icons/gi';
 
@@ -25,7 +25,7 @@ function TopBar({
   let signedInUser = localStorage.getItem('user');
   let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
 
-  const LogOut = (e) => {
+  const LogOut = () => {
     if (signedInUser) {
       setSignedIn(false);
       localStorage.removeItem('user');

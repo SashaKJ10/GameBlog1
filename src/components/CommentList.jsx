@@ -1,7 +1,7 @@
 import Comment from './Comment';
 import React, { useState, useEffect, useCallback } from 'react';
 
-function CommentList({ userInfo }) {
+function CommentList({ userInfo, setGames }) {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [commentId, setCommentId] = useState(0);
@@ -9,7 +9,7 @@ function CommentList({ userInfo }) {
   const admin = localStorage.getItem('admin');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isButtonCommentDisabled, setIsButtonCommentDisabled] = useState(false);
-
+  let details = JSON.parse(localStorage.getItem("detailsValue"))
   useEffect(() => {
     const commentsFromLocalStorage = JSON.parse(
       localStorage.getItem(`comments-${window.location.pathname}`)
@@ -26,14 +26,28 @@ function CommentList({ userInfo }) {
       JSON.stringify(comments)
     );
   }, [comments]);
-
+  let games = localStorage.getItem('items')
   const handleCommentSubmit = useCallback(
     (event) => {
       event.preventDefault();
       if (commentText.length === 0) return;
+      const newComment = { id: commentId, text: commentText };
+    const newComments = [...comments, newComment];
+
+
       setComments([...comments, { id: commentId, text: commentText }]);
       setCommentText('');
       setCommentId(commentId + 1);
+      setGames((prevGames) => {
+        const updatedGames = [...prevGames];
+        const index = updatedGames.findIndex((game) => game.id === details.id);
+        if (index !== -1) {
+          const updatedGame = { ...updatedGames[index] };
+          updatedGame.comments = [...newComments];
+          updatedGames[index] = updatedGame;
+        }
+        return updatedGames;
+      });
     },
     [comments, commentText, commentId]
   );

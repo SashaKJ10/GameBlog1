@@ -1,20 +1,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import NotFoundPage from '../pages/NotFoundPage';
 import SignIn from '../pages/SignIn';
-import React, {useState, lazy, Suspense, useMemo, useEffect} from 'react';
+import React, {useState, lazy, Suspense, useEffect} from 'react';
 import TopBar from './TopBar';
 import GamesDetail from '../pages/GamesDetail';
 import AddGame from '../pages/AddGame.jsx';
-
+import Account from "../pages/Account.jsx"
 function Routing({
-  games,
-  details,
-  addGame,
-  setDetails,
-  setGames,
-  saveItems,
-  handleCheckboxInfoGenres,
-  handleCheckboxInfoPlatforms,
+  
 }) {
   const [users, setUsers] = useState([]);
   const [signedIn, setSignedIn] = useState(false);
@@ -23,28 +16,43 @@ function Routing({
     email: '',
   });
 
-  // TODO: Task 2 - move genres and platforms to localStorage and get their values from localStorage on related pages
-  const genres = [
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    let items = JSON.parse(localStorage.getItem('items') ?? '[]');
+    setGames(items);
+    localStorage.setItem('admin', 'sasha023@gmail.com');
+  }, []);
+
+  localStorage.setItem('signedIn', JSON.stringify(signedIn))
+  let signedInUser = JSON.parse(localStorage.getItem("signedIn"))
+  // TODO: Task 2 - move genres and platforms to localStorage and get their values from localStorage on related pages ✔
+  const genreValues = [
     [0, 'Shooter'],
     [1, 'Fantasy'],
   ];
-
-  const platforms = [
+  
+  const platformValues = [
     [0, 'PC'],
     [1, 'Nintendo'],
     [2, 'PS5'],
   ];
+  localStorage.setItem('genres', JSON.stringify(genreValues))
+  localStorage.setItem('platforms', JSON.stringify(platformValues))
 
+  
   const [globalSearch, setGlobalSearch] = useState('');
+  localStorage.setItem("globalSearch", globalSearch)
   const Games = lazy(() => import('../pages/Games.jsx'));
-  const Account = lazy(() => import('../pages/Account.jsx'));
 
     useEffect(() => {
         setUserInfo(JSON.parse(
             localStorage.getItem('userInfo')
         ))
     }, [])
-
+    
+    const platforms = JSON.parse(localStorage.getItem('platforms'))
+    const genres = JSON.parse(localStorage.getItem("genres"))
   return (
     <div>
       <TopBar
@@ -55,46 +63,34 @@ function Routing({
         <Routes>
           <Route
             path="/account"
-            element={
-              <Suspense fallback={<h1>Loading...</h1>}>
-                {signedIn ? (
+            element={  
+                signedInUser ? (
                   <Account userInfo={userInfo} signedIn={signedIn} />
                 ) : (
                   <Navigate to="/" replace />
                 )}
-              </Suspense>
-            }
+        
+            
           />
           <Route
             path="/editing"
             element={
-              // <Suspense fallback={<h2>Loading...</h2>}>
               <AddGame
-                details={details}
-                addGame={addGame}
-                setDetails={setDetails}
-                platforms={platforms}
-                genres={genres}
-                handleCheckboxInfoGenres={handleCheckboxInfoGenres}
-                handleCheckboxInfoPlatforms={handleCheckboxInfoPlatforms}
+                setGames={setGames}
               />
-              // </Suspense>
             }
           />
           <Route
             path="/"
             element={
-              // <Suspense fallback={<h2>Loading...</h2>}>
               <Games
                 games={games}
                 setGames={setGames}
-                saveItems={saveItems}
                 userInfo={userInfo}
                 genres={genres}
                 platforms={platforms}
                 globalSearch={globalSearch}
               />
-              // </Suspense>
             }
           />
           <Route
@@ -104,6 +100,7 @@ function Routing({
                 games={games}
                 userInfo={userInfo}
                 signedIn={signedIn}
+                setGames={setGames}
               />
             }
           />

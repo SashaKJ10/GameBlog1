@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getGameById } from '../api/DataLoader';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import CommentList from '../components/CommentList';
-function GamesDetails({ userInfo, signedIn }) {
+function GamesDetails({ userInfo, signedIn, setGames }) {
   const { id } = useParams();
   const [game, setGame] = useState({
     id: 0,
@@ -12,6 +12,7 @@ function GamesDetails({ userInfo, signedIn }) {
     description: '',
     genres: [],
     platforms: [],
+    comments: []
   });
 
   useEffect(() => {
@@ -49,7 +50,7 @@ function GamesDetails({ userInfo, signedIn }) {
                 </div>
               </div>
               <div className="">
-                <CommentList userInfo={userInfo} signedIn={signedIn} />
+                <CommentList userInfo={userInfo} signedIn={signedIn} setGames={setGames} />
               </div>
             </div>
           </CSSTransition>

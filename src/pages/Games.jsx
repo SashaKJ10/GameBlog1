@@ -1,13 +1,13 @@
 import FilterForm from '../components/FilterForm.jsx';
-import {useMemo, useState} from 'react';
+import { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { GrTrash } from 'react-icons/gr';
 import Card from '../containers/Card';
 import Pagination from '../components/Pagination';
-
-function Games({ userInfo, games, genres, platforms, setGames, saveItems, globalSearch }) {
-    const admin = localStorage.getItem('admin');
-
+import {saveItems} from '../utils/localStorage.js'
+function Games({ userInfo, games, genres, platforms, setGames }) {
+  const admin = localStorage.getItem('admin');
+  let globalSearchData = localStorage.getItem('globalSearch')
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [selectedPlatforms, setSelectedPlatforms] = useState([]);
 
@@ -18,7 +18,7 @@ function Games({ userInfo, games, genres, platforms, setGames, saveItems, global
     const lastPostIndex = page * limit;
     const firstPostIndex = lastPostIndex - limit;
 
-    const filteredGames = games.filter((game) => {
+    let filteredGames = games.filter((game) => {
         if (!selectedGenres.every((genre) => game.genres.includes(genre))) {
             return false;
         }
@@ -26,19 +26,33 @@ function Games({ userInfo, games, genres, platforms, setGames, saveItems, global
             return false;
         }
         // TODO: Task 1 - Add globalSearch filtering HERE
+        
+        if (globalSearchData) {
+          return Object.values(game).some((value) => {
+            if (typeof value === 'string') {
+              return value.toLowerCase().includes(globalSearchData.toLowerCase());
+            }
+            return false;
+          });
+        }
+    
         return true;
-    });
+      });
 
     const paginatedFiltredGames = filteredGames.slice(
         firstPostIndex,
         lastPostIndex
     );
 
-  const onDelete = (id) => {
-    const newItem = games.filter((item) => item.id !== id);
-    setGames(newItem);
-    saveItems(newItem);
-  };
+    
+
+    const onDelete = (id) => {
+      const newItem = games.filter((item) => item.id !== id);
+      setGames(newItem);
+      saveItems(newItem);
+    };
+
+
 
   const filterByGenres = (event, value) => {
     let newSelectedGenres = selectedGenres;

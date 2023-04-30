@@ -24,9 +24,9 @@ function SignIn({
       'shadow appearance-none border rounded w-50 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
   };
   return (
-    <div>
+    <div className="flex justify-center h-screen">
       {signedInUser ? (
-        <div className=" flex items-center justify-center text-lg">
+        <div className="text-lg">
           You are signed in as {signedUserInfo?.email}
         </div>
       ) : (
@@ -36,7 +36,6 @@ function SignIn({
             <div className="py-3">
               <input
                 type="text"
-                value={userInfo?.email}
                 onChange={(e) =>
                   setUserInfo({ ...userInfo, email: e.target.value })
                 }
@@ -47,7 +46,6 @@ function SignIn({
             <div className="py-3">
               <input
                 type="password"
-                value={userInfo.password}
                 onChange={(e) =>
                   setUserInfo({ ...userInfo, password: e.target.value })
                 }

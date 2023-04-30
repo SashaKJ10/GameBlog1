@@ -1,23 +1,83 @@
 import BasketballLogo from '../images/logo/basketball.png';
+import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+import {saveItems} from '../utils/localStorage'
 function AddGame({
-  details,
-  addGame,
-  setDetails,
-  platforms,
-  genres,
-  handleCheckboxInfoGenres,
-  handleCheckboxInfoPlatforms,
+  setGames
 }) {
+  const navigate = useNavigate();
+  // TODO: Task 4 - move this value and related functions to AddGame page ✔
+  const [details, setDetails] = useState({
+    image: '',
+    name: '',
+    genres: [],
+    platforms: [],
+    id: 0,
+    comments: []
+  });
+  let games = JSON.parse(localStorage.getItem('items'))  
+  localStorage.setItem("detailsValue", JSON.stringify(details))
+  const handleCheckboxInfoGenres = (e) => {
+    const { checked, value } = e.target;
+
+    let newGenres = details.genres;
+    if (checked) {
+      newGenres = [...newGenres, value];
+    } else {
+      newGenres = newGenres.filter((genre) => genre !== value);
+    }
+
+    setDetails({
+      ...details,
+      genres: newGenres,
+    });
+  };
+
+  const handleCheckboxInfoPlatforms = (e) => {
+    const { checked, value } = e.target;
+
+    let newPlatforms = details.platforms;
+    if (checked) {
+      newPlatforms = [...newPlatforms, value];
+    } else {
+      newPlatforms = newPlatforms.filter((platform) => platform !== value);
+    }
+
+    setDetails({
+      ...details,
+      platforms: newPlatforms,
+    });
+  };
   const classes = {
     inputFileStyles:
       'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400',
   };
-
+  const platforms = JSON.parse(localStorage.getItem('platforms'))
+  const genres = JSON.parse(localStorage.getItem("genres"))
   const handleFileRead = async (event) => {
     const file = event.target.files[0];
     const base64 = await convertBase64(file);
     setDetails({ ...details, image: base64 });
   };
+
+    const addGame = (e) => {
+    e.preventDefault();
+    let id = Math.ceil(Math.random() * 1000);
+    details.id = id;
+    let newGames = [...games, details];
+    setGames(newGames);
+    setDetails({
+      image: '',
+      name: '',
+      genres: [],
+      platforms: [],
+      id: 0,
+    });
+
+    saveItems(newGames);
+    navigate('/');
+  };
+
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {

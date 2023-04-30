@@ -3,7 +3,7 @@ import { GrTrash } from 'react-icons/gr';
 import { MdThumbDown } from 'react-icons/md';
 import { MdThumbUp } from 'react-icons/md';
 
-function CommentSection({ id, game }) {
+function CommentSection({ id }) {
   const [reply, setReply] = useState('');
   const [comments, setComments] = useState([]);
   const [userInput, setUserInput] = useState({ id: 0, comment: '', newId: 0 });
