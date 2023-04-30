@@ -8,6 +8,7 @@ function Account({
     roleContainer: `flex items-center justify-center py-3`,
   };
 
+  // TODO: Task 2.3 - Fix component alignment
   return (
     <div>
       <div className={classes.imageContainer}>

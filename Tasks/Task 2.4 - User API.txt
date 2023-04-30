@@ -1,0 +1,51 @@
+﻿1. Create user controller
+2. Add HTTP_GET /users endpoint to receive all users
+3. Add HTTP_GET /user endpoint to receive current user
+4. Add HTTP_POST /login endpoint
+5. Check in Postman
+
+/users endpoint:
+sends /users request
+receives body:
+[
+    {
+        id: 1, // or any other user id
+        email: "custom_email",
+        isAdmin: true // or false
+    },
+    {
+        id: 2, // or any other user id
+        email: "custom_email2",
+        isAdmin: true // or false
+    }
+]
+
+/user endpoint:
+sends /user/{email} request
+receives body:
+{
+    id: 1, // or any other user id
+    email: "custom_email",
+    isAdmin: true // or false
+}
+
+/login endpoint:
+sends body:
+{
+    email: "custom_email",
+    password: "custom_password"
+}
+receives body:
+{
+    id: 1, // or any other user id
+    email: "custom_email",
+    isAdmin: true // or false
+}
+can't find user by email error body:
+{
+    error: "User not found"
+}
+user has incorrect password error body:
+{
+    error: "Incorrect password"
+}

@@ -1,7 +1,9 @@
 import express from 'express'
 import {v4 as uuidv4} from "uuid"
 const router = express.Router()
-let users = []
+let users = [
+    {id: 1, email: "sasha023@gmail.com", password: "123", isAdmin: true}
+]
 
 router.get('/', (req, res) => {
     console.log(users)

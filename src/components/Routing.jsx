@@ -9,7 +9,8 @@ import Account from "../pages/Account.jsx";
 import Games from "../pages/Games.jsx";
 
 function Routing() {
-    // TODO: Task 2.1 - Move users to SignIn.jsx and take them from local storage
+    // TODO: Task 2.1 - Remove user and admin fields from localStorage and replace them with userInfo data
+    // TODO: Task 2.2 - Move users to SignIn.jsx and take them from local storage
     const [users, setUsers] = useState([]);
     const [userInfo, setUserInfo] = useState({
         isAdmin: true, // should be false by default
