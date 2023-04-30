@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { GiSwordSlice } from 'react-icons/gi';
 
 function TopBar({
-  setSignedIn,
   setGlobalSearch
 }) {
   const [search, setSearch] = useState('');
@@ -27,9 +26,9 @@ function TopBar({
 
   const LogOut = () => {
     if (signedInUser) {
-      setSignedIn(false);
       localStorage.removeItem('user');
       localStorage.removeItem('userInfo');
+      window.location.reload(false);
     }
   };
 

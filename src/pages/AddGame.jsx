@@ -6,7 +6,6 @@ function AddGame({
   setGames
 }) {
   const navigate = useNavigate();
-  // TODO: Task 4 - move this value and related functions to AddGame page ✔
   const [details, setDetails] = useState({
     image: '',
     name: '',
