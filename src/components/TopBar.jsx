@@ -21,11 +21,10 @@ function TopBar({
   };
 
   let admin = localStorage.getItem('admin');
-  let signedInUser = localStorage.getItem('user');
   let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
 
   const LogOut = () => {
-    if (signedInUser) {
+    if (Object.values(signedUserInfo).length !== 0 ) {
       localStorage.removeItem('user');
       localStorage.removeItem('userInfo');
       window.location.reload(false);
@@ -53,7 +52,7 @@ function TopBar({
       <div className="flex w-full justify-between">
         <div className="flex items-center">
           <div className="px-2">
-            {signedInUser ? (
+            {Object.values(signedUserInfo).length !== 0 ? (
               <Link
                 to="/account"
                 onClick={(e) =>
@@ -146,7 +145,7 @@ function TopBar({
 
         <div className="flex items-center">
           <div className="px-2">
-            {signedUserInfo?.email === admin && signedInUser ? (
+            {signedUserInfo?.email === admin && Object.values(signedUserInfo).length !== 0  ? (
               <Link
                 to="/editing"
                 onClick={(e) =>
@@ -166,7 +165,7 @@ function TopBar({
             ) : null}
           </div>
           <div className="px-2">
-            {signedInUser ? (
+            {Object.values(signedUserInfo).length !== 0  ? (
               <h2 className="cursor-default flex justify-content items-center text-bold text-white whitespace-nowrap">
                 {signedUserInfo?.email}
               </h2>
@@ -190,7 +189,7 @@ function TopBar({
             )}
           </div>
           <div className="px-2">
-            {signedInUser ? (
+            {Object.values(signedUserInfo).length !== 0  ? (
               <button className={classes.button} onClick={(e) => LogOut(e)}>
                 Log out
               </button>

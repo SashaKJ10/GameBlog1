@@ -1,9 +1,9 @@
+import {useState} from "react"
 function SignIn({
-                    users,
-                    setUsers,
                     userInfo,
                     setUserInfo,
                 }) {
+        const [users, setUsers] = useState([]);
     const signInHandler = (e) => {
         e.preventDefault();
         let updatedUserInfo = {...userInfo, isAdmin: userInfo.email === "sasha023@gmail.com"};
@@ -11,9 +11,7 @@ function SignIn({
         setUsers([...users, updatedUserInfo]);
         let updatedUserInfoStr = JSON.stringify(updatedUserInfo);
         localStorage.setItem('userInfo', updatedUserInfoStr);
-        localStorage.setItem('user', true);
     };
-    const signedInUser = localStorage.getItem('user');
     let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
 
     const classes = {
@@ -24,8 +22,8 @@ function SignIn({
     };
     return (
         <div className="flex justify-center h-screen">
-            {signedInUser ? (
-                <div className="text-lg">
+            {Object.values(signedUserInfo).length !== 0 ? (
+                <div className="flex justify-center items-center text-lg">
                     You are signed in as {signedUserInfo?.email}
                 </div>
             ) : (

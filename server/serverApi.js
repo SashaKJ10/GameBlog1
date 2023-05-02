@@ -1,13 +1,19 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import usersRoutes from './routes/users.js'
+const express = require('express');
+const bodyParser = require('body-parser');
+const userController = require('./controllers/userController.cjs');
 
-const app = express()
-const PORT = 5000
-app.use(bodyParser.json())
-app.use('/users', usersRoutes)
-app.get('/', (req, res) => {
-    console.log("Test")
-    res.send("This is Home Page")
-})
-app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}`))
+const app = express();
+
+// Middleware
+app.use(bodyParser.json());
+
+// Routes
+app.get('/users', userController.getAllUsers);
+app.get('/user/:email', userController.getCurrentUser);
+app.post('/login', userController.loginUser);
+
+// Start server
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});

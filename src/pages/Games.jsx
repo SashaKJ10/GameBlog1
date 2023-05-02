@@ -9,14 +9,13 @@ import {saveItems} from '../utils/localStorage.js'
 function Games({userInfo, games, setGames, globalSearch}) {
     const platforms = JSON.parse(localStorage.getItem('platforms'))
     const genres = JSON.parse(localStorage.getItem("genres"))
-
-    const admin = localStorage.getItem('admin');
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [selectedPlatforms, setSelectedPlatforms] = useState([]);
 
     const [totalPages, setTotalPages] = useState(0);
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
+    let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
 
     const lastPostIndex = page * limit;
     const firstPostIndex = lastPostIndex - limit;
@@ -89,7 +88,7 @@ function Games({userInfo, games, setGames, globalSearch}) {
                         <div>The description is: {item.description}</div>
                         <div>Genres: {[...item.genres].join(', ')}</div>
                         <div>Platform: {[...item.platforms].join(', ')}</div>
-                        {userInfo?.email === admin ? (
+                        {signedUserInfo.isAdmin ? (
                             <div className="flex items-center justify-between">
                                 <GrTrash
                                     className="cursor-pointer"

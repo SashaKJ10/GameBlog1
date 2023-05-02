@@ -1,9 +1,9 @@
 import BasketballLogo from '../images/logo/basketball.png';
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import {saveItems} from '../utils/localStorage'
+// import {saveItems} from '../utils/localStorage'
 function AddGame({
-  setGames
+  setGames,
 }) {
   const navigate = useNavigate();
   const [details, setDetails] = useState({
@@ -14,7 +14,8 @@ function AddGame({
     id: 0,
     comments: []
   });
-  let games = JSON.parse(localStorage.getItem('items'))  
+  let games = JSON.parse(localStorage.getItem('items')) 
+  console.log(games)
   localStorage.setItem("detailsValue", JSON.stringify(details))
   const handleCheckboxInfoGenres = (e) => {
     const { checked, value } = e.target;
@@ -59,6 +60,11 @@ function AddGame({
     setDetails({ ...details, image: base64 });
   };
 
+  const saveItems = (items) => {
+    let json = JSON.stringify(items);
+    localStorage.setItem('items', json);
+  };
+
     const addGame = (e) => {
     e.preventDefault();
     let id = Math.ceil(Math.random() * 1000);
@@ -71,13 +77,14 @@ function AddGame({
       genres: [],
       platforms: [],
       id: 0,
+      comment: []
     });
 
     saveItems(newGames);
     navigate('/');
   };
 
-
+  
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();

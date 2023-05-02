@@ -9,11 +9,10 @@ import Account from "../pages/Account.jsx";
 import Games from "../pages/Games.jsx";
 
 function Routing() {
-    // TODO: Task 2.1 - Remove user and admin fields from localStorage and replace them with userInfo data
-    // TODO: Task 2.2 - Move users to SignIn.jsx and take them from local storage
-    const [users, setUsers] = useState([]);
+    // TODO: Task 2.1 - Remove user and admin fields from localStorage and replace them with userInfo data ✔
+    // TODO: Task 2.2 - Move users to SignIn.jsx and take them from local storage ✔
     const [userInfo, setUserInfo] = useState({
-        isAdmin: true, // should be false by default
+        isAdmin: false, // should be false by default ✔
         password: '',
         email: '',
     });
@@ -26,8 +25,6 @@ function Routing() {
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('admin', 'sasha023@gmail.com');
-
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
         if (userInfo && userInfo.email) {
             setUserInfo(userInfo);
@@ -56,6 +53,7 @@ function Routing() {
                         element={
                             <AddGame
                                 setGames={setGames}
+                                
                             />
                         }
                     />
@@ -82,8 +80,6 @@ function Routing() {
                         path="/signin"
                         element={
                             <SignIn
-                                users={users}
-                                setUsers={setUsers}
                                 userInfo={userInfo}
                                 setUserInfo={setUserInfo}
                             />
