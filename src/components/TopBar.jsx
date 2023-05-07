@@ -20,14 +20,12 @@ function TopBar({
             'bg-blue-500/75 whitespace-nowrap hover:bg-blue-600/75 text-white font-bold py-2 px-2 rounded cursor-pointer',
     };
 
-    // TODO: Task 3.3 - you shouldn't have this field, use userInfo.isAdmin instead
-    let admin = localStorage.getItem('admin');
+    // TODO: Task 3.3 - you shouldn't have this field, use userInfo.isAdmin instead ✔
     let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
 
     const LogOut = () => {
         if (Object.values(signedUserInfo).length !== 0) {
-            // TODO: Task 3.4 - you don't need this removeItem statement, because we use userInfo
-            localStorage.removeItem('user');
+            // TODO: Task 3.4 - you don't need this removeItem statement, because we use userInfo ✔
             localStorage.removeItem('userInfo');
             window.location.reload(false);
         }
@@ -147,7 +145,7 @@ function TopBar({
 
                 <div className="flex items-center">
                     <div className="px-2">
-                        {signedUserInfo?.email === admin && Object.values(signedUserInfo).length !== 0 ? (
+                        {signedUserInfo?.email === signedUserInfo.isAdmin && Object.values(signedUserInfo).length !== 0 ? (
                             <Link
                                 to="/editing"
                                 onClick={(e) =>

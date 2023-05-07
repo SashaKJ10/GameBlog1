@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.get('/users', userController.getAllUsers);
-app.get('/user/:email', userController.getCurrentUser);
+app.get('/user', userController.getCurrentUser);
 app.post('/login', userController.loginUser);
 
 // Start server

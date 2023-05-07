@@ -17,18 +17,27 @@ const users = [
   
   // Get all users
   exports.getAllUsers = (req, res) => {
-    res.status(200).json(users);
+    res.status(200).json(users.map(user => ({
+      id: user.id,
+      email: user.email,
+      isAdmin: user.isAdmin
+    })));
   };
   
   // Get current user
   exports.getCurrentUser = (req, res) => {
-    const email = req.params.email;
+    const email = req.query.email;
     const user = users.find((u) => u.email === email);
   
     if (!user) {
       res.status(404).json({ error: 'User not found' });
     } else {
-      res.status(200).json(user);
+      const userWithoutPassword = {
+        id: user.id,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      };
+      res.status(200).json(userWithoutPassword);
     }
   };
   
