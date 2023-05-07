@@ -3,11 +3,14 @@ function SignIn({
                     userInfo,
                     setUserInfo,
                 }) {
-        const [users, setUsers] = useState([]);
+    // TODO: Task 3.1 - Remove this state field entirely
+    const [users, setUsers] = useState([]);
+
     const signInHandler = (e) => {
         e.preventDefault();
         let updatedUserInfo = {...userInfo, isAdmin: userInfo.email === "sasha023@gmail.com"};
         setUserInfo(updatedUserInfo);
+        // TODO: Task 3.2 - Remove this setUsers usage
         setUsers([...users, updatedUserInfo]);
         let updatedUserInfoStr = JSON.stringify(updatedUserInfo);
         localStorage.setItem('userInfo', updatedUserInfoStr);

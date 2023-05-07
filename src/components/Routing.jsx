@@ -9,10 +9,8 @@ import Account from "../pages/Account.jsx";
 import Games from "../pages/Games.jsx";
 
 function Routing() {
-    // TODO: Task 2.1 - Remove user and admin fields from localStorage and replace them with userInfo data ✔
-    // TODO: Task 2.2 - Move users to SignIn.jsx and take them from local storage ✔
     const [userInfo, setUserInfo] = useState({
-        isAdmin: false, // should be false by default ✔
+        isAdmin: false,
         password: '',
         email: '',
     });
@@ -46,14 +44,14 @@ function Routing() {
                             <Account
                                 userInfo={userInfo}
                             />
-                    }
+                        }
                     />
                     <Route
                         path="/editing"
                         element={
                             <AddGame
                                 setGames={setGames}
-                                
+
                             />
                         }
                     />
@@ -63,7 +61,6 @@ function Routing() {
                             <Games
                                 games={games}
                                 setGames={setGames}
-                                userInfo={userInfo}
                                 globalSearch={globalSearch}
                             />
                         }

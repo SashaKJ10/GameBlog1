@@ -1,12 +1,12 @@
 import FilterForm from '../components/FilterForm.jsx';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {GrTrash} from 'react-icons/gr';
 import Card from '../containers/Card';
 import Pagination from '../components/Pagination';
 import {saveItems} from '../utils/localStorage.js'
 
-function Games({userInfo, games, setGames, globalSearch}) {
+function Games({games, setGames, globalSearch}) {
     const platforms = JSON.parse(localStorage.getItem('platforms'))
     const genres = JSON.parse(localStorage.getItem("genres"))
     const [selectedGenres, setSelectedGenres] = useState([]);

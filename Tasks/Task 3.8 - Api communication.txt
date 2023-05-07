@@ -1,0 +1,7 @@
+﻿Add 3 methods in src/api/DataLoader.js: getCurrentUser, getUsers, login.
+These methods should communicate with your api. You can use any library/technology you know to communicate with api.
+You can try 3 different approaches to practice a bit more:
+1. fetch + promises
+2. fetch + async/await
+3. any 3rd party lib + async/await
+DO NOT USE THESE METHODS IN YOUR COMPONENTS FOR NOW!!!

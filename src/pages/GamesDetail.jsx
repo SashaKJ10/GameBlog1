@@ -33,7 +33,8 @@ function GamesDetails() {
                             <img
                                 className="w-200 h-13 rounded-lg mt-10 overflow-hidden shadow-lg transform duration-500 ease-in-out hover:scale-105 z-5"
                                 src={game.image}/>
-                            <div className="px-6 py-4 bg-blue-300 rounded-lg shadow-lg mt-3 w-30 flex items-center justify-center flex-col">
+                            <div
+                                className="px-6 py-4 bg-blue-300 rounded-lg shadow-lg mt-3 w-30 flex items-center justify-center flex-col">
                                 <div className="font-bold font-julee text-4xl mb-2">
                                     Name: {game.name}
                                 </div>
