@@ -37,7 +37,7 @@ router.patch('/:id', (req, res) => {
     const {id} = req.params
     const {name, age} = req.body
     const usersEntity = users.find(user => user.id === id)
-    if(name) usersEntityname = name
+    if(name) usersEntity.name = name
     if(age) usersEntity.age = age
     res.send(`User with the ${id} has been updated`)
 })

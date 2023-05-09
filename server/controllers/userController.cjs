@@ -32,6 +32,7 @@ const users = [
     if (!user) {
       res.status(404).json({ error: 'User not found' });
     } else {
+      // TODO: Task 4.1 - extract mapping logic user -> userWithoutPassword in a separate method, example: getUserWithoutPassword(user), use this method in getAllUsers and loginUser
       const userWithoutPassword = {
         id: user.id,
         email: user.email,

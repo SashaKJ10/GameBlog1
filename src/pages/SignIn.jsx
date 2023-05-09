@@ -1,18 +1,15 @@
-import {useState} from "react"
 function SignIn({
                     userInfo,
                     setUserInfo,
                 }) {
-    // TODO: Task 3.1 - Remove this state field entirely ✔
-
     const signInHandler = (e) => {
         e.preventDefault();
         let updatedUserInfo = {...userInfo, isAdmin: userInfo.email === "sasha023@gmail.com"};
         setUserInfo(updatedUserInfo);
-        // TODO: Task 3.2 - Remove this setUsers usage ✔
         let updatedUserInfoStr = JSON.stringify(updatedUserInfo);
         localStorage.setItem('userInfo', updatedUserInfoStr);
     };
+
     let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
 
     const classes = {

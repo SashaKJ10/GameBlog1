@@ -32,31 +32,28 @@ export const getAllGames = () => {
 }
 
 
-export const getCurrentUser = async(email) => {
+export const getCurrentUser = async (email) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/user?email=${email}`)
         return response.data
-    }catch(error){
+    } catch (error) {
         throw error.response.data;
     }
 }
 
-export const getUsers = async() => {
+export const getUsers = async () => {
     try {
         const response = await axios.get(`${API_BASE_URL}/users`)
         return response.data
-    }catch(error){
+    } catch (error) {
         throw error.response.data;
     }
 }
 
-export const loginUser = async(email, password) => {
-    try{
-    const response = await axios.post(`${API_BASE_URL}/login`, {email, password})
-    }catch(error){
+export const loginUser = async (email, password) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/login`, {email, password})
+    } catch (error) {
         throw error.response.data;
-
     }
-
-    
 }   

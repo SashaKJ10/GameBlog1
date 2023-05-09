@@ -1,0 +1,109 @@
+﻿User story:
+As an administrator
+I want to provide a list of games from my API
+So users will be able to access the list of games all around the world.
+
+Details:
+You should create a new controller for games (example: gamesController) and add a list of games (at list 10).
+The controller should have a list of methods:
+
+1. GET:/games endpoint:
+sends GET:/games request
+receives body:
+[
+    {
+        id: 1
+        image: "URL",
+        name: "Game1",
+        genres: ["Shooter"],
+        platforms: ["PC"]
+    },
+    {
+        id: 2
+        image: "URL",
+        name: "Game2",
+        genres: ["Shooter","Fantasy"],
+        platforms: ["PC","Nintendo"]
+    }
+]
+
+2. GET:/games/:id endpoint:
+sends GET:/games/:id request
+receives body:
+{
+    id: 1
+    image: "URL",
+    name: "Game1",
+    genres: ["Shooter"],
+    platforms: ["PC"],
+    description: "Some details about the Game1"
+}
+
+3. POST:/games endpoint
+sends POST:/games with body:
+{
+    image: "URL",
+    name: "Game1",
+    genres: ["Shooter"],
+    platforms: ["PC"],
+    description: "Some details about the Game1"
+}
+receives body:
+{
+    id: 1
+    image: "URL",
+    name: "Game1",
+    genres: ["Shooter"],
+    platforms: ["PC"],
+    description: "Some details about the Game1"
+}
+game with such name exists error body:
+{
+    error: "Game already exists"
+}
+description: this endpoint create a new game object on backend according to the data from request body.
+
+4. PUT:/games/:id endpoint
+sends PUT:/games/:id with body:
+{
+    image: "URL",
+    name: "Game12",
+    genres: ["Shooter"],
+    platforms: ["PC"],
+    description: "Some details about the Game1"
+}
+receives body:
+{
+    id: 1
+    image: "URL",
+    name: "Game12",
+    genres: ["Shooter"],
+    platforms: ["PC"],
+    description: "Some details about the Game1"
+}
+game with such name exists error body:
+{
+    error: "Game already exists"
+}
+game can't be found by id error body:
+{
+    error: "Game can't be found"
+}
+description: this endpoint updates the whole game object on backend according to the data from request body.
+
+5. DELETE:/games/:id request
+sends DELETE:/games/:id
+receives body:
+{
+    id: 1
+    image: "URL",
+    name: "Game1",
+    genres: ["Shooter"],
+    platforms: ["PC"],
+    description: "Some details about the Game1"
+}
+game can't be found by id error body:
+{
+    error: "Game can't be found"
+}
+description: this endpoint deletes the game object on backend.
