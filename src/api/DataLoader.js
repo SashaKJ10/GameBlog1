@@ -57,3 +57,23 @@ export const loginUser = async (email, password) => {
         throw error.response.data;
     }
 }   
+
+export const getGames = () => {
+    return axios.get(`${API_URL}/games`);
+  }
+  
+  export const getGameByIndex = (id) => {
+    return axios.get(`${API_URL}/games/${id}`);
+  }
+  
+  export const createGame = (game) => {
+    return axios.post(`${API_URL}/games`, game);
+  }
+  
+  export const updateGame = (id, game) =>{
+    return axios.put(`${API_URL}/games/${id}`, game);
+  }
+  
+  export const deleteGame = (id) => {
+    return axios.delete(`${API_URL}/games/${id}`);
+  }

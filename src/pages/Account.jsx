@@ -7,7 +7,7 @@ function Account({
         imageContainer: `flex flex-col items-center`,
         roleContainer: `flex items-center justify-center py-3`,
     };
-
+    const storedUserInfo = JSON.parse(localStorage.getItem("userInfoApi"))
     return (
         <div className='flex justify-center items-center h-screen'>
             <div className={classes.imageContainer}>
@@ -16,14 +16,14 @@ function Account({
             <div className="flex flex-col justify-center items-center pl-4">
 
                 <div>
-                    {userInfo?.email}
+                    {storedUserInfo?.email}
                 </div>
                 <div>
-                    {userInfo?.password}
+                    {storedUserInfo?.password}
                 </div>
                 <div className={classes.roleContainer}>
                     <h1>
-                        {(userInfo?.isAdmin ? 'admin' : '')}
+                        {(storedUserInfo?.isAdmin ? 'admin' : '')}
                     </h1>
                 </div>
             </div>

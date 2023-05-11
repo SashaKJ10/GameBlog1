@@ -1,3 +1,4 @@
+import axios from "axios"
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {GiSwordSlice} from 'react-icons/gi';
@@ -19,15 +20,10 @@ function TopBar({
         buttonClicked:
             'bg-blue-500/75 whitespace-nowrap hover:bg-blue-600/75 text-white font-bold py-2 px-2 rounded cursor-pointer',
     };
-
+    
     let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
+    const storedUserInfo = JSON.parse(localStorage.getItem('userInfoApi') ?? '{}');
 
-    const LogOut = () => {
-        if (Object.values(signedUserInfo).length !== 0) {
-            localStorage.removeItem('userInfo');
-            window.location.reload(false);
-        }
-    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -37,6 +33,18 @@ function TopBar({
     function handleSearchChange(e) {
         setSearch(e.target.value);
     }
+
+    const logoutHandler = async (e) => {
+        e.preventDefault();
+        try {
+          await axios.post("http://localhost:5000/logout");
+          localStorage.removeItem('userInfoApi');
+          console.log("Logout successful!");
+        } catch (err) {
+          console.error(err);
+        }
+      };
+    
 
     return (
         <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300 z-10">
@@ -50,7 +58,7 @@ function TopBar({
             <div className="flex w-full justify-between">
                 <div className="flex items-center">
                     <div className="px-2">
-                        {Object.values(signedUserInfo).length !== 0 ? (
+                        {Object.values(storedUserInfo).length !== 0 ? (
                             <Link
                                 to="/account"
                                 onClick={(e) =>
@@ -143,7 +151,7 @@ function TopBar({
 
                 <div className="flex items-center">
                     <div className="px-2">
-                        {signedUserInfo?.email === signedUserInfo.isAdmin && Object.values(signedUserInfo).length !== 0 ? (
+                        {storedUserInfo.isAdmin && Object.values(storedUserInfo).length !== 0 ? (
                             <Link
                                 to="/editing"
                                 onClick={(e) =>
@@ -163,9 +171,9 @@ function TopBar({
                         ) : null}
                     </div>
                     <div className="px-2">
-                        {Object.values(signedUserInfo).length !== 0 ? (
+                        {Object.values(storedUserInfo).length !== 0 ? (
                             <h2 className="cursor-default flex justify-content items-center text-bold text-white whitespace-nowrap">
-                                {signedUserInfo?.email}
+                                {storedUserInfo?.email}
                             </h2>
                         ) : (
                             <Link
@@ -187,8 +195,8 @@ function TopBar({
                         )}
                     </div>
                     <div className="px-2">
-                        {Object.values(signedUserInfo).length !== 0 ? (
-                            <button className={classes.button} onClick={(e) => LogOut(e)}>
+                        {Object.values(storedUserInfo).length !== 0 ? (
+                            <button className={classes.button} onClick={(e) => logoutHandler(e)}>
                                 Log out
                             </button>
                         ) : null}

@@ -14,14 +14,19 @@ const users = [
       isAdmin: false,
     },
   ];
-  
-  // Get all users
-  exports.getAllUsers = (req, res) => {
-    res.status(200).json(users.map(user => ({
+
+  const getUserWithoutPassword = (user) => {
+    return {
       id: user.id,
       email: user.email,
-      isAdmin: user.isAdmin
-    })));
+      isAdmin: user.isAdmin,
+    };
+  };
+
+  // Get all users
+  exports.getAllUsers = (req, res) => {
+  res.status(200).json(users.map(user => getUserWithoutPassword(user)
+    ));
   };
   
   // Get current user
@@ -33,11 +38,7 @@ const users = [
       res.status(404).json({ error: 'User not found' });
     } else {
       // TODO: Task 4.1 - extract mapping logic user -> userWithoutPassword in a separate method, example: getUserWithoutPassword(user), use this method in getAllUsers and loginUser
-      const userWithoutPassword = {
-        id: user.id,
-        email: user.email,
-        isAdmin: user.isAdmin,
-      };
+      const userWithoutPassword = getUserWithoutPassword(user);
       res.status(200).json(userWithoutPassword);
     }
   };
@@ -51,12 +52,20 @@ const users = [
     } else if (user.password !== password) {
       res.status(401).json({ error: 'Incorrect password' });
     } else {
-      const userWithoutPassword = {
-        id: user.id,
-        email: user.email,
-        isAdmin: user.isAdmin,
-      };
+      const userWithoutPassword = getUserWithoutPassword(user);
       // const token = jwt.sign({ password: user.password }, 'secret');
       res.status(200).json(userWithoutPassword);
     }
   };
+  
+  exports.logOut =  (req, res) => {
+    // clear the user session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  }

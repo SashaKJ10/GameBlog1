@@ -4,7 +4,7 @@ I want to provide a list of games from my API
 So users will be able to access the list of games all around the world.
 
 Details:
-You should create a new controller for games (example: gamesController) and add a list of games (at list 10).
+You should create a new controller for games (example: gamesController) and add a list of games (at least 10).
 The controller should have a list of methods:
 
 1. GET:/games endpoint:
