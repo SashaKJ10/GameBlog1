@@ -38,6 +38,7 @@ function TopBar({
         e.preventDefault();
         try {
           await axios.post("http://localhost:5000/logout");
+          window.location.reload();
           localStorage.removeItem('userInfoApi');
           console.log("Logout successful!");
         } catch (err) {
