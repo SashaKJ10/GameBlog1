@@ -1,18 +1,15 @@
-import axios from "axios"
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {GiSwordSlice} from 'react-icons/gi';
 
 function TopBar({
-                    setGlobalSearch
+                    userInfo,
+                    isSignedIn,
+                    updateGlobalSearch,
+                    logoutAsync,
                 }) {
     const [search, setSearch] = useState('');
-    const [clickInfo, setClickInfo] = useState({
-        gameButtonClicked: false,
-        signInButtonClicked: false,
-        accountButtonClicked: false,
-        addGameButtonClicked: false,
-    });
+    const [clickInfo, setClickInfo] = useState({});
 
     const classes = {
         button:
@@ -20,14 +17,10 @@ function TopBar({
         buttonClicked:
             'bg-blue-500/75 whitespace-nowrap hover:bg-blue-600/75 text-white font-bold py-2 px-2 rounded cursor-pointer',
     };
-    
-    let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
-    const storedUserInfo = JSON.parse(localStorage.getItem('userInfoApi') ?? '{}');
-
 
     const submit = (e) => {
         e.preventDefault();
-        setGlobalSearch(search);
+        updateGlobalSearch(search);
     }
 
     function handleSearchChange(e) {
@@ -38,14 +31,12 @@ function TopBar({
         e.preventDefault();
         try {
           await axios.post("http://localhost:5000/logout");
-          window.location.reload();
           localStorage.removeItem('userInfoApi');
           console.log("Logout successful!");
         } catch (err) {
-          console.error(err);
+            console.error(err);
         }
-      };
-    
+    };
 
     return (
         <div className="fixed top-0 flex w-full bg-gray-500 shadow border-gray-300 z-10">
@@ -59,17 +50,16 @@ function TopBar({
             <div className="flex w-full justify-between">
                 <div className="flex items-center">
                     <div className="px-2">
-                        {Object.values(storedUserInfo).length !== 0 ? (
+                        {isSignedIn ? (
                             <Link
                                 to="/account"
                                 onClick={(e) =>
                                     setClickInfo({
-                                        ...(clickInfo = false),
-                                        accountButtonClicked: true,
+                                        accountTabClicked: true,
                                     })
                                 }
                                 className={
-                                    clickInfo.accountButtonClicked
+                                    clickInfo.accountTabClicked
                                         ? classes.buttonClicked
                                         : classes.button
                                 }
@@ -83,12 +73,11 @@ function TopBar({
                             to="/"
                             onClick={(e) =>
                                 setClickInfo({
-                                    ...(clickInfo = false),
-                                    gameButtonClicked: true,
+                                    gameTabClicked: true,
                                 })
                             }
                             className={
-                                clickInfo.gameButtonClicked
+                                clickInfo.gameTabClicked
                                     ? classes.buttonClicked
                                     : classes.button
                             }
@@ -152,17 +141,16 @@ function TopBar({
 
                 <div className="flex items-center">
                     <div className="px-2">
-                        {storedUserInfo.isAdmin && Object.values(storedUserInfo).length !== 0 ? (
+                        {isSignedIn && userInfo.isAdmin ? (
                             <Link
                                 to="/editing"
                                 onClick={(e) =>
                                     setClickInfo({
-                                        ...(clickInfo = false),
-                                        addGameButtonClicked: true,
+                                        addGameTabClicked: true,
                                     })
                                 }
                                 className={
-                                    clickInfo.addGameButtonClicked
+                                    clickInfo.addGameTabClicked
                                         ? classes.buttonClicked
                                         : classes.button
                                 }
@@ -172,21 +160,27 @@ function TopBar({
                         ) : null}
                     </div>
                     <div className="px-2">
-                        {Object.values(storedUserInfo).length !== 0 ? (
+                        {isSignedIn ? (
                             <h2 className="cursor-default flex justify-content items-center text-bold text-white whitespace-nowrap">
-                                {storedUserInfo?.email}
+                                {userInfo?.email}
                             </h2>
+                        ) : null}
+                    </div>
+                    <div className="px-2">
+                        {isSignedIn ? (
+                            <button className={classes.button} onClick={(e) => logoutHandler(e)}>
+                                Log out
+                            </button>
                         ) : (
                             <Link
                                 to="/signin"
                                 onClick={(e) =>
                                     setClickInfo({
-                                        ...(clickInfo = false),
-                                        signInButtonClicked: true,
+                                        signInTabClicked: true,
                                     })
                                 }
                                 className={
-                                    clickInfo.signInButtonClicked
+                                    clickInfo.signInTabClicked
                                         ? classes.buttonClicked
                                         : classes.button
                                 }
@@ -194,13 +188,6 @@ function TopBar({
                                 Sign In
                             </Link>
                         )}
-                    </div>
-                    <div className="px-2">
-                        {Object.values(storedUserInfo).length !== 0 ? (
-                            <button className={classes.button} onClick={(e) => logoutHandler(e)}>
-                                Log out
-                            </button>
-                        ) : null}
                     </div>
                 </div>
             </div>

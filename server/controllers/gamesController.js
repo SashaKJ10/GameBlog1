@@ -13,32 +13,40 @@ const games = [
         id: 2,
         image: "URL",
         name: "Game2",
-        genres: ["Shooter","Fantasy"],
-        platforms: ["PC","Nintendo"],
+        genres: ["Shooter", "Fantasy"],
+        platforms: ["PC", "Nintendo"],
         description: "Some details about the Game2"
     },
 ]
 
 // GET:/games
-router.get("/games", (req,res) => {
+router.get("", (req, res) => {
     res.json(games)
 })
+
 // GET:/games/:id
-router.get("/games/:id", (req, res) => {
+router.get("/:id", (req, res) => {
     const game = games.find(g => g.id === parseInt(req.params.id))
-    if(!game) return res.status(404).send("Game not found")
+    if (!game) {
+        return res.status(404).send("Game not found")
+    }
+
     res.json(game)
 })
+
 // POST:/games
-router.post("/games", (req, res) => {
+router.post("", (req, res) => {
     const gameExists = games.find(g => g.name === req.body.name)
-    if(gameExists) return res.status(400).send("Game already exists")
+    if (gameExists) {
+        return res.status(400).send("Game already exists")
+    }
+
     const game = {
         id: games.length + 1,
         image: req.body.image,
         name: req.body.name,
         genres: req.body.genres,
-        platforms:req.body.platforms,
+        platforms: req.body.platforms,
         description: req.body.description
     }
     games.push(game)
@@ -46,11 +54,17 @@ router.post("/games", (req, res) => {
 })
 
 // PUT: /games/:id
-router.put("/games/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     const game = games.find(g => g.id === parseInt(req.body.id))
-    if(!game) return res.status(404).send("Game not found")
+    if (!game) {
+        return res.status(404).send("Game not found")
+    }
+
     const gameExists = games.find(g => g.name === req.body.name && g.id !== parseInt(req.params.id))
-    if(gameExists) return res.status(400).send("Game already exits")
+    if (gameExists) {
+        return res.status(400).send("Game already exits")
+    }
+
     game.image = req.body.image
     game.name = req.body.name
     game.genres = req.body.genres
@@ -60,10 +74,14 @@ router.put("/games/:id", (req, res) => {
 })
 
 // DELETE: /games/:id
-router.delete('/games/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const index = games.findIndex(g => g.id === parseInt(req.params.id))
-    if(index === -1) return res.status(404).send("Game not found")
+    if (index === -1) {
+        return res.status(404).send("Game not found")
+    }
+
     const game = games.splice(index, 1)
     res.json(game[0])
 })
-module.exports = router
+
+module.exports = router;

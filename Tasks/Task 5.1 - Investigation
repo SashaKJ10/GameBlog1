@@ -1,0 +1,6 @@
+﻿1. Review my commit "Different fixes".
+2. Write down all structural changes you can notice below.
+
+Structural changes:
+0. (Example) Created updateGlobalSearch(search) method in Routing to encapsulate globalSearch modification.
+1. ...

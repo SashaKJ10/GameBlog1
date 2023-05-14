@@ -1,6 +1,6 @@
 import {useParams} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import {getGameById} from '../api/DataLoader';
+import {getGameById} from '../api/GamesApi';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 function GamesDetails() {
