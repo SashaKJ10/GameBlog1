@@ -7,34 +7,57 @@ import GamesDetail from '../pages/GamesDetail';
 import AddGame from '../pages/AddGame.jsx';
 import Account from "../pages/Account.jsx";
 import Games from "../pages/Games.jsx";
+import {loginUserAsync, logoutUserAsync} from "../api/UsersApi";
 
 function Routing() {
-    const [userInfo, setUserInfo] = useState({
-        isAdmin: false,
-        password: '',
-        email: '',
-    });
-
+    const [userInfo, setUserInfo] = useState({});
     const [games, setGames] = useState([]);
+    const [globalSearch, setGlobalSearch] = useState('');
 
     useEffect(() => {
-        let items = JSON.parse(localStorage.getItem('items') ?? '[]');
-        setGames(items);
+        loadUserInfo();
+        loadGames();
     }, []);
 
-    useEffect(() => {
+    function loadUserInfo() {
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
         if (userInfo && userInfo.email) {
             setUserInfo(userInfo);
         }
-    }, [])
+    }
 
-    const [globalSearch, setGlobalSearch] = useState('');
+    function loadGames() {
+        let items = JSON.parse(localStorage.getItem('items') ?? '[]');
+        setGames(items);
+    }
 
+    function checkSignedIn() {
+        return !!(userInfo && userInfo?.email);
+    }
+
+    async function loginAsync(email, password) {
+        const userInfo = await loginUserAsync(email, password);
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        setUserInfo(userInfo);
+    }
+
+    async function logoutAsync() {
+        await logoutUserAsync();
+        localStorage.removeItem('userInfo');
+        setUserInfo({});
+    }
+
+    function updateGlobalSearch(search) {
+        setGlobalSearch(search);
+    }
+    
     return (
         <div>
             <TopBar
-                setGlobalSearch={setGlobalSearch}
+                userInfo={userInfo}
+                isSignedIn={checkSignedIn()}
+                updateGlobalSearch={updateGlobalSearch}
+                logoutAsync={logoutAsync}
             />
             <Suspense>
                 <Routes>
@@ -51,7 +74,6 @@ function Routing() {
                         element={
                             <AddGame
                                 setGames={setGames}
-
                             />
                         }
                     />
@@ -78,7 +100,8 @@ function Routing() {
                         element={
                             <SignIn
                                 userInfo={userInfo}
-                                setUserInfo={setUserInfo}
+                                isSignedIn={checkSignedIn()}
+                                loginAsync={loginAsync}
                             />
                         }
                     />
