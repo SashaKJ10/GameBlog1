@@ -1,3 +1,0 @@
-﻿Add 5 methods in src/api/DataLoader.js: getGames, getGameById, createGame, updateGame, deleteGame.
-These methods should communicate with your api. You can use any library/technology you know to communicate with api.
-DO NOT USE THESE METHODS IN YOUR COMPONENTS FOR NOW!!!

@@ -1,0 +1,4 @@
+﻿Practical tasks:
+1. Implement Redux with reducers to keep states in a storage.
+2. Load games from API instead of local storage.
+3. Use post, put, delete methods from Game API to add, update and delete games.
