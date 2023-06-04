@@ -4,6 +4,7 @@ import {getGameById} from '../api/GamesApi';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import axios from 'axios'
 import {getGameByIdAsync} from "../api/GamesApi"
+
 function GamesDetails({games}) {
     const {id} = useParams();
     const [game, setGame] = useState({
@@ -14,20 +15,16 @@ function GamesDetails({games}) {
         genres: [],
         platforms: [],
     });
-    useEffect(async() => {
-       await getGameAsyncById(id)
-    }, [game]);
 
-
-    async function getGameAsyncById(id){
-        try{
+    useEffect(() => {
+        const fetchGame = async () => {
             const item = await getGameByIdAsync(id)
-            setGame({...game, item})
-            console.log(item)
-            }catch(error){
-                throw error.response.data
-            }
-    }
+            setGame(item)
+        }
+
+        fetchGame().catch(console.error);
+    }, []);
+
     return (
         <div className="flex flex-col items-center justify-center">
             <div className="">

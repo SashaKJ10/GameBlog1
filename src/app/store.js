@@ -1,8 +1,16 @@
 import {configureStore} from '@reduxjs/toolkit'
+import {combineReducers} from 'redux'
 import {userInfoSlice} from './userInfoReducer'
-const store = configureStore({reducer: userInfoSlice.reducer})
 
+const userInfoReducer = userInfoSlice.reducer;
 
+const reducer = combineReducers({
+    userInfoReducer,
+})
 
-export default store
+const store = configureStore({
+    reducer,
+})
+
+export default store;
 

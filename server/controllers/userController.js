@@ -16,7 +16,7 @@ const users = [
 ];
 
 // GET:/users
-router.get("/users", (req, res) => {
+router.get("/", (req, res) => {
     const email = req.query.email;
 
     if (email) {
@@ -66,7 +66,7 @@ const getUserByEmail = (email, res) => {
         return;
     }
 
-    const userWithoutPassword = getUserWithoutPassword(user);
+    const userWithoutPassword = getUserWithoutPassword(response[0]);
     res.status(200).json(userWithoutPassword);
 }
 
