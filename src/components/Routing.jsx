@@ -8,43 +8,49 @@ import AddGame from '../pages/AddGame.jsx';
 import Account from "../pages/Account.jsx";
 import Games from "../pages/Games.jsx";
 import {loginUserAsync, logoutUserAsync} from "../api/UsersApi";
+import {getGamesAsync} from '../api/GamesApi'
+import {useDispatch, useSelector} from "react-redux"
+import { addUserInfo, removeUserInfo } from '../app/userInfoReducer';
+
 
 function Routing() {
-    const [userInfo, setUserInfo] = useState({});
+    
+
+    const [userInfo, setUserInfo] = useState({})
     const [games, setGames] = useState([]);
     const [globalSearch, setGlobalSearch] = useState('');
-
+    const dispatch = useDispatch()
+    const userInfoInfo = useSelector(state => state.userInfoR)
+    console.log(userInfoInfo?.email) 
     useEffect(() => {
         loadUserInfo();
-        loadGames();
+         loadGames();
     }, []);
 
     function loadUserInfo() {
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if (userInfo && userInfo.email) {
+        if (userInfoInfo && userInfoInfo.email) {
             setUserInfo(userInfo);
         }
     }
 
-    function loadGames() {
-        let items = JSON.parse(localStorage.getItem('items') ?? '[]');
+    async function loadGames() {
+        let items = await getGamesAsync()
         setGames(items);
     }
 
     function checkSignedIn() {
-        return !!(userInfo && userInfo?.email);
+        return !!(userInfoInfo && userInfoInfo?.email);
     }
 
     async function loginAsync(email, password) {
         const userInfo = await loginUserAsync(email, password);
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        setUserInfo(userInfo);
+        dispatch(addUserInfo(userInfo))
     }
 
     async function logoutAsync() {
         await logoutUserAsync();
-        localStorage.removeItem('userInfo');
-        setUserInfo({});
+        dispatch(removeUserInfo());
     }
 
     function updateGlobalSearch(search) {
@@ -54,7 +60,7 @@ function Routing() {
     return (
         <div>
             <TopBar
-                userInfo={userInfo}
+                userInfoInfo={userInfoInfo}
                 isSignedIn={checkSignedIn()}
                 updateGlobalSearch={updateGlobalSearch}
                 logoutAsync={logoutAsync}
@@ -65,7 +71,7 @@ function Routing() {
                         path="/account"
                         element={
                             <Account
-                                userInfo={userInfo}
+                            userInfoInfo={userInfoInfo}
                             />
                         }
                     />
@@ -90,7 +96,7 @@ function Routing() {
                     <Route
                         path="/:id"
                         element={
-                            <GamesDetail/>
+                            <GamesDetail games={games}/>
                         }
                     />
                     <Route path="*" element={<NotFoundPage/>}/>
@@ -99,7 +105,7 @@ function Routing() {
                         path="/signin"
                         element={
                             <SignIn
-                                userInfo={userInfo}
+                                userInfoInfo={userInfoInfo}
                                 isSignedIn={checkSignedIn()}
                                 loginAsync={loginAsync}
                             />

@@ -30,9 +30,8 @@ function TopBar({
     const logoutHandler = async (e) => {
         e.preventDefault();
         try {
-          await axios.post("http://localhost:5000/logout");
-          localStorage.removeItem('userInfoApi');
-          console.log("Logout successful!");
+            await logoutAsync();
+            console.log("Logout successful!");
         } catch (err) {
             console.error(err);
         }
@@ -194,5 +193,4 @@ function TopBar({
         </div>
     );
 }
-
 export default TopBar;

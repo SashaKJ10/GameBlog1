@@ -5,7 +5,7 @@ import {GrTrash} from 'react-icons/gr';
 import Card from '../containers/Card';
 import Pagination from '../components/Pagination';
 import {saveItems} from '../utils/localStorage.js'
-
+import {deleteGameAsync  } from '../api/GamesApi.js';
 function Games({games, setGames, globalSearch}) {
     const platforms = JSON.parse(localStorage.getItem('platforms'))
     const genres = JSON.parse(localStorage.getItem("genres"))
@@ -45,11 +45,17 @@ function Games({games, setGames, globalSearch}) {
         lastPostIndex
     );
 
-    const onDelete = (id) => {
-        const newItem = games.filter((item) => item.id !== id);
-        setGames(newItem);
-        saveItems(newItem);
-    };
+    const onDelete = async (id) => {
+        try {
+          await deleteGameAsync(id);
+          const newItem = games.filter((item) => item.id !== id);
+          setGames(newItem);
+          saveItems(newItem);
+        } catch (error) {
+          console.error(error);
+          // Handle error if necessary
+        }
+      };
 
     const filterByGenres = (event, value) => {
         let newSelectedGenres = selectedGenres;

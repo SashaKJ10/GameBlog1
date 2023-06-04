@@ -7,7 +7,9 @@ const userController = require('./controllers/userController');
 const app = express();
 
 // Middleware
-app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -15,6 +17,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
+app.use(bodyParser.json({ limit: '300mb' })); // Adjust the limit value as per your needs
 app.use(session({
   secret: 'my-secret-key',
   resave: false,

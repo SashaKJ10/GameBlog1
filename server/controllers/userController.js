@@ -16,7 +16,7 @@ const users = [
 ];
 
 // GET:/users
-router.get("", (req, res) => {
+router.get("/users", (req, res) => {
     const email = req.query.email;
 
     if (email) {
@@ -44,14 +44,14 @@ router.post("/login", (req, res) => {
 // POST:/logout
 router.post("/logout", (req, res) => {
     // clear the user session
-    req.session.destroy((err) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Internal server error');
-        } else {
-            res.sendStatus(200);
-        }
-    });
+    // req.session.destroy((err) => {
+    //     if (err) {
+    //         console.error(err);
+    //         res.status(500).send('Internal server error');
+    //     } else {
+    //         res.sendStatus(200);
+    //     }
+    // });
 })
 
 const getAllUsers = (res) => {

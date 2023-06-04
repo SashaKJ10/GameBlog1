@@ -3,4 +3,6 @@
 
 Structural changes:
 0. (Example) Created updateGlobalSearch(search) method in Routing to encapsulate globalSearch modification.
-1. ...
+1. Created  loadUserInfo, loadGames, checkSignedIn, loginAsync, logoutAsync in the  Routing component  mostly in order to increase readability.
+2. Implemented separate functions to get the api data instead of doing all the work in a component itself.
+3. Modified GamesApi and UsersApi files.

@@ -1,6 +1,7 @@
 import BasketballLogo from '../images/logo/basketball.png';
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom';
+import { createGameAsync } from '../api/GamesApi.js';
 
 // import {saveItems} from '../utils/localStorage'
 function AddGame({
@@ -66,25 +67,23 @@ function AddGame({
         localStorage.setItem('items', json);
     };
 
-    const addGame = (e) => {
+    const addGame = async (e) => {
         e.preventDefault();
-        let id = Math.ceil(Math.random() * 1000);
-        details.id = id;
-        let newGames = [...games, details];
-        setGames(newGames);
-        setDetails({
+        try {
+          const createdGame = await createGameAsync(details);
+          setGames((prevGames) => [...prevGames, createdGame]);
+          setDetails({
             image: '',
             name: '',
             genres: [],
             platforms: [],
-            id: 0,
-            comment: []
-        });
-
-        saveItems(newGames);
-        navigate('/');
-    };
-
+            description: '',
+          });
+          navigate('/');
+        } catch (error) {
+          console.error('Failed to add game:', error);
+        }
+      };
 
     const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {
