@@ -1,12 +1,15 @@
 import SnoopDog from '../images/UserImg/SnoopDog.jpg';
+import { useSelector } from 'react-redux';
+import {loadStateFromStorage} from '../utils/reduxLocalState'
 
 function Account({
-                     userInfo,
+    
                  }) {
     const classes = {
         imageContainer: `flex flex-col items-center`,
         roleContainer: `flex items-center justify-center py-3`,
     };
+    const signedInUserInfo = useSelector(state => state.userInfoReducer)
     return (
         <div className='flex justify-center items-center h-screen'>
             <div className={classes.imageContainer}>
@@ -15,14 +18,14 @@ function Account({
             <div className="flex flex-col justify-center items-center pl-4">
 
                 <div>
-                    {userInfo?.email}
+                    {signedInUserInfo.email}
                 </div>
                 <div>
-                    {userInfo?.password}
+                    {signedInUserInfo.password}
                 </div>
                 <div className={classes.roleContainer}>
                     <h1>
-                        {(userInfo?.isAdmin ? 'admin' : '')}
+                        {(signedInUserInfo.isAdmin ? 'admin' : '')}
                     </h1>
                 </div>
             </div>

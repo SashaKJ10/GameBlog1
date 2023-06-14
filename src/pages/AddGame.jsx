@@ -2,8 +2,10 @@ import BasketballLogo from '../images/logo/basketball.png';
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom';
 import { createGameAsync } from '../api/GamesApi.js';
-
+import {useDispatch} from 'react-redux'
 // import {saveItems} from '../utils/localStorage'
+import {addGames} from '../app/gamesReducer'
+
 function AddGame({
                      setGames,
                  }) {
@@ -16,6 +18,7 @@ function AddGame({
         id: 0,
         comments: []
     });
+    const dispatch = useDispatch()
     let games = JSON.parse(localStorage.getItem('items'))
     console.log(games)
     localStorage.setItem("detailsValue", JSON.stringify(details))
@@ -67,11 +70,14 @@ function AddGame({
         localStorage.setItem('items', json);
     };
 
-    const addGame = async (e) => {
-        e.preventDefault();
+    const addGame = async (event) => {
+        event.preventDefault();
         try {
           const createdGame = await createGameAsync(details);
-          setGames((prevGames) => [...prevGames, createdGame]);
+          console.log(createdGame)
+          if(createdGame){
+          dispatch(addGames(createdGame))
+          }
           setDetails({
             image: '',
             name: '',

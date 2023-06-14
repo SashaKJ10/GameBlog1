@@ -2,25 +2,26 @@ import FilterForm from '../components/FilterForm.jsx';
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {GrTrash} from 'react-icons/gr';
-import Card from '../containers/Card';
 import Pagination from '../components/Pagination';
 import {saveItems} from '../utils/localStorage.js'
 import {deleteGameAsync  } from '../api/GamesApi.js';
+import { useSelector, useDispatch } from 'react-redux';
+import {removeGame} from '../app/gamesReducer.js'
 function Games({games, setGames, globalSearch}) {
     const platforms = JSON.parse(localStorage.getItem('platforms'))
     const genres = JSON.parse(localStorage.getItem("genres"))
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [selectedPlatforms, setSelectedPlatforms] = useState([]);
-
     const [totalPages, setTotalPages] = useState(0);
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(1);
-    let signedUserInfo = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
-
+    const signedInUserInfo = useSelector(state => state.userInfoReducer)
+    const gameInfo = useSelector(state => state.gameReducer)
+    console.log(gameInfo)
     const lastPostIndex = page * limit;
     const firstPostIndex = lastPostIndex - limit;
-
-    let filteredGames = games.filter((game) => {
+    const dispatch = useDispatch()
+    let filteredGames = gameInfo?.filter((game) => {
         if (!selectedGenres.every((genre) => game.genres.includes(genre))) {
             return false;
         }
@@ -49,7 +50,7 @@ function Games({games, setGames, globalSearch}) {
         try {
           await deleteGameAsync(id);
           const newItem = games.filter((item) => item.id !== id);
-          setGames(newItem);
+          dispatch(removeGame(id))
           saveItems(newItem);
         } catch (error) {
           console.error(error);
@@ -84,7 +85,7 @@ function Games({games, setGames, globalSearch}) {
         <div className="mt-6.25">
             <div className="flex flex-row px-60  flex-wrap">
                 {paginatedFiltredGames.map((item) => (
-                    <Card>
+                    <div className='flex flex-col  justify-between items-center  rounded shadow  py-5 px-5'>
                         <div className="flex justify-center items-center">
                             <Link to={`/${item.id}`}>
                                 <img className="w-15 h-15" src={item.image}/>
@@ -94,7 +95,7 @@ function Games({games, setGames, globalSearch}) {
                         <div>The description is: {item.description}</div>
                         <div>Genres: {[...item.genres].join(', ')}</div>
                         <div>Platform: {[...item.platforms].join(', ')}</div>
-                        {signedUserInfo.isAdmin ? (
+                        {signedInUserInfo.isAdmin ? (
                             <div className="flex items-center justify-between">
                                 <GrTrash
                                     className="cursor-pointer"
@@ -102,7 +103,7 @@ function Games({games, setGames, globalSearch}) {
                                 />
                             </div>
                         ) : null}
-                    </Card>
+                    </div>
                 ))}
             </div>
             <div className="fixed top-16 border-shadow">

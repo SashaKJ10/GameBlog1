@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
-
 const defaultState = {email: '', isAdmin: false}
+
 
 export const userInfoSlice = createSlice({
     name: 'userInfoR',
@@ -8,7 +8,7 @@ export const userInfoSlice = createSlice({
     reducers: {
         getUserInfo(state, action) {
             console.log("check")
-            state.userInfo2 = action.payload;
+            state = action.payload;
         },
         addUserInfo(state, action) {
             return {...state, ...action.payload}

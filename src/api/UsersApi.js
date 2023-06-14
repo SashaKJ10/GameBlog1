@@ -41,3 +41,14 @@ export const logoutUserAsync = async () => {
         throw error.response.data;
     }
 }
+
+export const signUserUpAsync = async(email, password) => {
+    const body = {
+        email, password
+    }
+    try {
+        await axios.post(`${API_BASE_URL}/signup`, body)
+    }catch(error){
+        throw error.response.data
+    }
+}

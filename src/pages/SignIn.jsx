@@ -1,13 +1,13 @@
 import {useState} from 'react'
 import {useNavigate} from "react-router-dom";
-
+import { useSelector } from 'react-redux';
 function SignIn({
-                    userInfo,
-                    isSignedIn,
-                    loginAsync,
-                }) {
+    isSignedIn,
+    loginAsync,
+}) {
     const navigate = useNavigate();
     const [signInData, setSignInData] = useState({});
+    const signedInUserInfo = useSelector(state => state.userInfoReducer)
 
     const signInHandler = async (e) => {
         e.preventDefault();
@@ -37,9 +37,9 @@ function SignIn({
 
     return (
         <div className="flex justify-center h-screen">
-            {isSignedIn ? (
+            {signedInUserInfo.email ? (
                 <div className="flex justify-center items-center text-lg">
-                    You are signed in as {userInfo.email}
+                    You are signed in as {signedInUserInfo.email}
                 </div>
             ) : (
                 <div className="flex flex-col justify-center items-center">

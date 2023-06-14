@@ -4,7 +4,6 @@ import {getGameById} from '../api/GamesApi';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import axios from 'axios'
 import {getGameByIdAsync} from "../api/GamesApi"
-
 function GamesDetails({games}) {
     const {id} = useParams();
     const [game, setGame] = useState({
@@ -15,10 +14,11 @@ function GamesDetails({games}) {
         genres: [],
         platforms: [],
     });
-
+    
     useEffect(() => {
         const fetchGame = async () => {
             const item = await getGameByIdAsync(id)
+            console.log(item)
             setGame(item)
         }
 

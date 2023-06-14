@@ -1,15 +1,18 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {GiSwordSlice} from 'react-icons/gi';
+import { useSelector, useDispatch } from 'react-redux';
 
 function TopBar({
-                    userInfo,
+    
                     isSignedIn,
                     updateGlobalSearch,
                     logoutAsync,
                 }) {
     const [search, setSearch] = useState('');
     const [clickInfo, setClickInfo] = useState({});
+    const signedInUserInfo = useSelector(state => state.userInfoReducer)
+    console.log(signedInUserInfo)
 
     const classes = {
         button:
@@ -26,6 +29,8 @@ function TopBar({
     function handleSearchChange(e) {
         setSearch(e.target.value);
     }
+
+
 
     const logoutHandler = async (e) => {
         e.preventDefault();
@@ -49,7 +54,7 @@ function TopBar({
             <div className="flex w-full justify-between">
                 <div className="flex items-center">
                     <div className="px-2">
-                        {isSignedIn ? (
+                        {signedInUserInfo?.email ? (
                             <Link
                                 to="/account"
                                 onClick={(e) =>
@@ -140,7 +145,7 @@ function TopBar({
 
                 <div className="flex items-center">
                     <div className="px-2">
-                        {isSignedIn && userInfo.isAdmin ? (
+                        {signedInUserInfo?.email && signedInUserInfo?.isAdmin ? (
                             <Link
                                 to="/editing"
                                 onClick={(e) =>
@@ -159,33 +164,48 @@ function TopBar({
                         ) : null}
                     </div>
                     <div className="px-2">
-                        {isSignedIn ? (
+                        {signedInUserInfo?.email ? (
                             <h2 className="cursor-default flex justify-content items-center text-bold text-white whitespace-nowrap">
-                                {userInfo?.email}
+                                {signedInUserInfo?.email}
                             </h2>
                         ) : null}
                     </div>
                     <div className="px-2">
-                        {isSignedIn ? (
+                        {signedInUserInfo?.email ? (
                             <button className={classes.button} onClick={(e) => logoutHandler(e)}>
                                 Log out
                             </button>
                         ) : (
+                            <div className='flex gap-10'>
                             <Link
-                                to="/signin"
-                                onClick={(e) =>
-                                    setClickInfo({
-                                        signInTabClicked: true,
-                                    })
-                                }
-                                className={
-                                    clickInfo.signInTabClicked
-                                        ? classes.buttonClicked
-                                        : classes.button
-                                }
+                            to="/signin"
+                            onClick={(e) =>
+                                setClickInfo({
+                                    signInTabClicked: true,
+                                })
+                            }
+                            className={
+                                clickInfo.signInTabClicked
+                                ? classes.buttonClicked
+                                : classes.button
+                            }
                             >
                                 Sign In
                             </Link>
+                            <Link to='/signup' onClick={(e) =>
+                                setClickInfo({
+                                    signUpTabClicked: true,
+                                })
+                            }
+                            className={
+                                clickInfo.signUpTabClicked
+                                ? classes.buttonClicked
+                                : classes.button
+                            }>
+                            Sign up
+                            </Link>
+
+                            </div>
                         )}
                     </div>
                 </div>

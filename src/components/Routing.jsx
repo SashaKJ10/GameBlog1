@@ -11,8 +11,7 @@ import {loginUserAsync, logoutUserAsync} from "../api/UsersApi";
 import {getGamesAsync} from '../api/GamesApi'
 import {useDispatch, useSelector} from "react-redux"
 import { addUserInfo, removeUserInfo } from '../app/userInfoReducer';
-
-
+import SignUp from '../pages/SignUp.jsx'
 function Routing() {
     
 
@@ -20,16 +19,17 @@ function Routing() {
     const [games, setGames] = useState([]);
     const [globalSearch, setGlobalSearch] = useState('');
     const dispatch = useDispatch()
-    const userInfoInfo = useSelector(state => state.userInfoR)
-    console.log(userInfoInfo?.email) 
+    const signedInUserInfo = useSelector(state => state.userInfoReducer)
+    console.log(signedInUserInfo) 
     useEffect(() => {
         loadUserInfo();
-         loadGames();
+         loadGames();         
     }, []);
+
 
     function loadUserInfo() {
         let userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if (userInfoInfo && userInfoInfo.email) {
+        if (signedInUserInfo && signedInUserInfo.email) {
             setUserInfo(userInfo);
         }
     }
@@ -40,7 +40,7 @@ function Routing() {
     }
 
     function checkSignedIn() {
-        return !!(userInfoInfo && userInfoInfo?.email);
+        return !!(signedInUserInfo && signedInUserInfo.email);
     }
 
     async function loginAsync(email, password) {
@@ -60,7 +60,6 @@ function Routing() {
     return (
         <div>
             <TopBar
-                userInfoInfo={userInfoInfo}
                 isSignedIn={checkSignedIn()}
                 updateGlobalSearch={updateGlobalSearch}
                 logoutAsync={logoutAsync}
@@ -71,7 +70,6 @@ function Routing() {
                         path="/account"
                         element={
                             <Account
-                            userInfoInfo={userInfoInfo}
                             />
                         }
                     />
@@ -80,6 +78,7 @@ function Routing() {
                         element={
                             <AddGame
                                 setGames={setGames}
+                                
                             />
                         }
                     />
@@ -105,12 +104,12 @@ function Routing() {
                         path="/signin"
                         element={
                             <SignIn
-                                userInfoInfo={userInfoInfo}
                                 isSignedIn={checkSignedIn()}
                                 loginAsync={loginAsync}
                             />
                         }
                     />
+                    <Route path='/signup' element={<SignUp/>}/>
                 </Routes>
             </Suspense>
         </div>

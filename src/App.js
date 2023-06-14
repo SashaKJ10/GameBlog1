@@ -18,11 +18,13 @@ function App() {
 
     localStorage.setItem('genres', JSON.stringify(genreValues))
     localStorage.setItem('platforms', JSON.stringify(platformValues))
+    
 
     useEffect(() => {
         dispatch(getCurrentUser("custom_email"));
+        
     }, [dispatch]);
-
+    
     return (
         <div className="flex flex-col top-3.7 absolute w-full">
             <Routing/>

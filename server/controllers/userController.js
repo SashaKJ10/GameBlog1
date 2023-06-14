@@ -43,15 +43,30 @@ router.post("/login", (req, res) => {
 
 // POST:/logout
 router.post("/logout", (req, res) => {
-    // clear the user session
-    // req.session.destroy((err) => {
-    //     if (err) {
-    //         console.error(err);
-    //         res.status(500).send('Internal server error');
-    //     } else {
-    //         res.sendStatus(200);
-    //     }
-    // });
+    req.session.destroy((err) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal server error');
+        } else {
+            res.sendStatus(200);
+        }
+    });
+})
+
+router.post('/signup', (req, res) => {
+    const {email, password} = req.body
+    const user = users.find(user => user.email === email)
+    if(!user){
+    users.push({
+        id: Math.floor(Math.random() * 1000),
+        email: email,
+        password: password,
+        isAdmin: false,
+    })
+}else{
+    res.status(200).json(users[0])
+    res.json("User already exists")
+}
 })
 
 const getAllUsers = (res) => {
