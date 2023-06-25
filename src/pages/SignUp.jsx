@@ -29,6 +29,7 @@ function SignUp(){
             }
             
             try {
+                // TODO: Task 7 - Should use dispatch + API
                 await signUserUpAsync(email, password)
                 onOpenPopUpHandler()
                 setEmail('')

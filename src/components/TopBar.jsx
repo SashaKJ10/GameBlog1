@@ -9,6 +9,8 @@ function TopBar({
                     updateGlobalSearch,
                     logoutAsync,
                 }) {
+    //TODO: Task 3 - Replace updateGlobalSearch using dispatch and separate reducer to handle global search
+
     const [search, setSearch] = useState('');
     const [clickInfo, setClickInfo] = useState({});
     const signedInUserInfo = useSelector(state => state.userInfoReducer)

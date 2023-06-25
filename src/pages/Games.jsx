@@ -8,6 +8,9 @@ import {deleteGameAsync  } from '../api/GamesApi.js';
 import { useSelector, useDispatch } from 'react-redux';
 import {removeGame} from '../app/gamesReducer.js'
 function Games({games, setGames, globalSearch}) {
+    //TODO: Task 1 - Load games from global store
+    //TODO: Task 4 - Load global search from global store
+
     const platforms = JSON.parse(localStorage.getItem('platforms'))
     const genres = JSON.parse(localStorage.getItem("genres"))
     const [selectedGenres, setSelectedGenres] = useState([]);

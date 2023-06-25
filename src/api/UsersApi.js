@@ -12,6 +12,7 @@ export const getUsers = async () => {
     }
 }
 
+// TODO: Task 0 - Review this example and use same approach (dispatch + API) for all other API methods
 export const getCurrentUser = (email) =>
     async (dispatch) => {
         try {

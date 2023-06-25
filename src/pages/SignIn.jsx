@@ -12,6 +12,7 @@ function SignIn({
     const signInHandler = async (e) => {
         e.preventDefault();
         try {
+            // TODO: Task 6 - Should use dispatch + API
             await loginAsync(signInData.email, signInData.password);
             alert('Login successful!');
             navigate("/");

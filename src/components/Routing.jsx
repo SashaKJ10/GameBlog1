@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from "react-redux"
 import { addUserInfo, removeUserInfo } from '../app/userInfoReducer';
 import SignUp from '../pages/SignUp.jsx'
 function Routing() {
-    
+    //TODO: Task 2 - Remove everything but return statement here
 
     const [userInfo, setUserInfo] = useState({})
     const [games, setGames] = useState([]);

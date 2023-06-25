@@ -73,11 +73,13 @@ function AddGame({
     const addGame = async (event) => {
         event.preventDefault();
         try {
+            // TODO: Task 5 - Replace this block using dispatch + API
           const createdGame = await createGameAsync(details);
           console.log(createdGame)
           if(createdGame){
           dispatch(addGames(createdGame))
           }
+            // ---------------
           setDetails({
             image: '',
             name: '',
